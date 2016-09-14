@@ -14,7 +14,7 @@ logr = logging.getLogger(__name__)
 @receiver(post_save, sender=User)
 def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
     if kwargs.get('created', False):
-        up = User_Profile.objects.create(user=kwargs.get('instance'))
+        up = Photographer.objects.create(user=kwargs.get('instance'))
         loger.debut('User_Profile created {}'.format(up))
 
 
@@ -24,11 +24,12 @@ class Photographer(models.Model):
                                    default=uuid.uuid4,
                                    editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL)
-    has_portfolio = models.BooleanField()
+    has_portfolios = models.BooleanField()
+    portfolio_url = models.CharField('p')
 
     def __str__(self):
         fn = self.user.get_full_name().strip() or self.user.get_username()
-        return "{}: {}".format(fn, self.user_number)
+        return "{}: {}".format(fn, self.user_uuid)
 
     def active():
         pass
