@@ -2,7 +2,7 @@ from __future__ import unicode_literals
 from django.db import models
 import uuid
 from django.conf import settings
-from django.db import models
+from django.contrib.auth.models import User
 from django.utils.encoding import python_2_unicode_compatible
 from django.db.models.signals import post_save
 from django.dispatch import receiver
@@ -15,7 +15,7 @@ logr = logging.getLogger(__name__)
 def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
     if kwargs.get('created', False):
         up = Photographer.objects.create(user=kwargs.get('instance'))
-        loger.debut('User_Profile created {}'.format(up))
+        # loger.debut('User_Profile created {}'.format(up))
 
 
 class PatronProfileManager(models.Manager):
@@ -36,7 +36,7 @@ class Photographer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     has_portfolios = models.BooleanField()
-    portfolio_url = models.CharField('p')
+    portfolio_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
         fn = self.user.get_full_name().strip() or self.user.get_username()
@@ -95,6 +95,6 @@ class SocialMedia(models.Model):
         Photographer,
         on_delete=models.CASCADE,
         primary_key=True,
-        related_name='Addresses',  # TODO: look this up and set it
+        related_name='SocialMedia',  # TODO: look this up and set it
     )
     # more fields
