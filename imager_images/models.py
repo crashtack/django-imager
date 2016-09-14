@@ -3,7 +3,11 @@ import uuid
 from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
-# Create your models here.
+
+
+def user_directory_path(instance, filename):
+    ''' file will be uploaded to MEDIA_ROOT/user_<id>/%Y%m%d<filename>'''
+    return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
 class Photo(models.Manager):
@@ -11,12 +15,12 @@ class Photo(models.Manager):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
     albums = models.ManyToManyField('Album')
-    card_number = models.UUIDField(primary_key=True,
-                                   default=uuid.uuid4,
-                                   editable=False)
-    file = models.ImageField(upload_to=user_directory_path(instance, filename),
-                             height_field=None,
-                             width_field=None, max_length=100)
+    photo_id = models.UUIDField(primary_key=True,
+                                default=uuid.uuid4,
+                                editable=False)
+    image_file = models.ImageField(upload_to=user_directory_path,
+                                   height_field=None,
+                                   width_field=None, max_length=100)
     title = models.CharField("Title", max_length=255, blank=True)
     height_field = models.IntegerField("Height", blank=True)
     width_field = models.IntegerField("Width", blank=True)
@@ -37,18 +41,14 @@ class Photo(models.Manager):
                                           ('shared', 'shared'),
                                           ('public', 'public')])
 
-    def user_directory_path(instance, filename):
-        ''' file will be uploaded to MEDIA_ROOT/user_<id>/%Y-%m-%d<filename>'''
-        return 'user_{0}/{1}'.format(instance.user.id, filename)
-
     def __str__(self):
-        return self.file
+        return self.image_file
 
     class Meta:
         ordering = ('date_created',)
 
 
-class Album(models.Manger):
+class Album(models.Manager):
     '''An Album of Photos'''
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
@@ -62,3 +62,6 @@ class Album(models.Manger):
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
                                           ('public', 'public')])
+
+    def __str__(self):
+        return self.title

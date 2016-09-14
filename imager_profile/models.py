@@ -49,11 +49,6 @@ class Photographer(models.Model):
     objects = models.Manager()
     active = PatronProfileManager()
 
-    # don't do it this way, use the Manager Method (PratonProfileManager)
-    # @classmethod
-    # def active(cls):
-    #     return cls.objects.filter(user__is_active__exactly=True)
-
 
 class Address(models.Model):
     photographer_profile = models.ForeignKey(
@@ -62,6 +57,7 @@ class Address(models.Model):
         primary_key=True,
         related_name='Addresses',  # TODO: look this up and set it
     )
+    default = models.BooleanField('Default Address', default=False)
     address_1 = models.CharField('Street Address 1',
                                  max_length=255,
                                  blank=True,  # it's valid to be empty in Python
