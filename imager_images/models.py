@@ -40,8 +40,10 @@ class Photo(models.Manager):
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
                                           ('public', 'public')])
+    likes_cheese = models.BooleanField('Likes Cheese!', default=False)
 
     def __str__(self):
+        '''this is a  doc string'''
         return self.image_file
 
     class Meta:
