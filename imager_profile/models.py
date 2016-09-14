@@ -4,14 +4,27 @@ import uuid
 from django.conf import settings
 from django.db import models
 from django.utils.encoding import python_2_unicode_compatible
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
+import logging
+logr = logging.getLogger(__name__)
+
+
+@receiver(post_save, sender=User)
+def make_sure_user_profile_is_added_on_user_created(sender, **kwargs):
+    if kwargs.get('created', False):
+        up = User_Profile.objects.create(user=kwargs.get('instance'))
+        loger.debut('User_Profile created {}'.format(up))
 
 
 @python_2_unicode_compatible
-class ImagerProfile(models.Model):
-    user_number = models.UUIDField(primary_key=True,
+class Photographer(models.Model):
+    user_uuid = models.UUIDField(primary_key=True,
                                    default=uuid.uuid4,
                                    editable=False)
-    user = models.OneToOneField(seeting.AUTH_USER_MODEL)
+    user = models.OneToOneField(settings.AUTH_USER_MODEL)
+    has_portfolio = models.BooleanField()
 
     def __str__(self):
         fn = self.user.get_full_name().strip() or self.user.get_username()
@@ -19,6 +32,7 @@ class ImagerProfile(models.Model):
 
     def active():
         pass
+
 
 class Address(models.Model):
     address_1 = models.CharField('Street Address 1',
