@@ -6,7 +6,9 @@ from django.utils.encoding import python_2_unicode_compatible
 
 
 def user_directory_path(instance, filename):
-    ''' file will be uploaded to MEDIA_ROOT/user_<id>/%Y%m%d<filename>'''
+    ''' file will be uploaded to MEDIA_ROOT/user_<id>/%Y%m%d<filename>
+        this is not true it will return: MEDIA_ROOT/user_<id>/<filename>
+    '''
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
@@ -18,9 +20,11 @@ class Photo(models.Model):
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
                                 editable=False)
-    image_file = models.ImageField(upload_to=user_directory_path,
-                                   height_field=None,
-                                   width_field=None, max_length=100)
+                                
+    file = models.ImageField(upload_to=user_directory_path,
+                             height_field=None,
+                             width_field=None, max_length=100)
+
     title = models.CharField("Title", max_length=255, blank=True)
     height_field = models.IntegerField("Height", blank=True)
     width_field = models.IntegerField("Width", blank=True)
