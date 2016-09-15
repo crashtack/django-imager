@@ -10,7 +10,7 @@ def user_directory_path(instance, filename):
     return 'user_{0}/{1}'.format(instance.user.id, filename)
 
 
-class Photo(models.Manager):
+class Photo(models.Model):
     '''A Photo belonging to a usr'''
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
@@ -29,7 +29,6 @@ class Photo(models.Manager):
     camera = models.CharField("Camera", max_length=64, blank=True)
     lens = models.CharField("Lens", max_length=64, blank=True)
     focal_length = models.CharField("Focal Length", max_length=32, blank=True)
-    iso = models.IntegerField("ISO", blank=True)
     shutter_speed = models.IntegerField("Shutter Speed", blank=True)
     appature = models.CharField("Title", max_length=64, blank=True)
     description = models.CharField("Title", max_length=255, blank=True)
@@ -50,7 +49,7 @@ class Photo(models.Manager):
         ordering = ('date_created',)
 
 
-class Album(models.Manager):
+class Album(models.Model):
     '''An Album of Photos'''
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
