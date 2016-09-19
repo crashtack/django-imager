@@ -35,7 +35,7 @@ class Photographer(models.Model):
                                  editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE)
-    has_portfolios = models.BooleanField()
+    has_portfolios = models.BooleanField(default=True)
     portfolio_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):

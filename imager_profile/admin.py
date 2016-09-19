@@ -1,4 +1,4 @@
 from django.contrib import admin
 
 # Register your models here.
-admin.site.register(Photographer)
+# admin.site.register(Photographer)
