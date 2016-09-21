@@ -18,11 +18,16 @@ from django.conf.urls.static import static
 from django.conf import settings
 from django.contrib import admin
 from imagersite.views import home_view
+from django.contrib.auth.views import logout
+import registration
 
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
     url(r'^$', home_view, name='homepage'),
+    url(r'^logout/$', logout, {'next_page': '/'}),
+    url(r'^', include('django.contrib.auth.urls')),
+    url(r'accounts/^', include('registration.backends.hmac.urls')),
 ]
 
 

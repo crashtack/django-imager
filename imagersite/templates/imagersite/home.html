@@ -3,7 +3,8 @@
     <h1>Imagersite</h1>
     <img src="media/home.jpeg" width="500">
     <p>Join the site or I will kill you!</p>
-    <a class="btn btn-default" href="join" role="button">Join</a>
-    <a class="btn btn-default" href="signup" role="button">Singup</a>
+    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
+    <a class="btn btn-default" href="{% url 'logout' %}" role="button">Logout</a>
+
 
 {% endblock %}
