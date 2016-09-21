@@ -93,4 +93,7 @@ class SocialMedia(models.Model):
         primary_key=True,
         related_name='SocialMedia',  # TODO: look this up and set it
     )
+    reason_i_like_bacon = models.CharField(max_length=200,
+                                           blank=True,
+                                           null=True)
     # more fields
