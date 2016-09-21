@@ -1,9 +1,9 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Home Page></title>
-</head>
-<body>
-  <h1> Hello World!asfasdfdsa</h1>
-</body>
-</html>
+{% extends "imagersite/base.html" %}
+{% block body %}
+    <h1>Imagersite</h1>
+    <img src="media/home.jpeg" width="500">
+    <p>Join the site or I will kill you!</p>
+    <a class="btn btn-default" href="join" role="button">Join</a>
+    <a class="btn btn-default" href="signup" role="button">Singup</a>
+
+{% endblock %}
