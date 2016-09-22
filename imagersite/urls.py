@@ -32,11 +32,11 @@ urlpatterns = [
 
 """
     Other active Routes:
-        /login/ -----------------------> /registration/login.html
-        /accounts/register/ -----------> /registration/registration_form.html
-        /accounts/register/complete/ --> /registration/registration_complete.html
-        /accounts/register/closed/ ----> /registration/registration_closed.html
-        /accounts/activate/complete/ --> /registration/activation_complete.html
+        login/ -----------------------> /registration/login.html
+        accounts/register/ -----------> /registration/registration_form.html
+        accounts/register/complete/ --> /registration/registration_complete.html
+        accounts/register/closed/ ----> /registration/registration_closed.html
+        accounts/activate/complete/ --> /registration/activation_complete.html
         url(r'^activate/(?P<activation_key>[-:\w]+)/$',
                 views.ActivationView.as_view(),
                 name='registration_activate')  -----> /nowhere yet.
