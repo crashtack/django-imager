@@ -1,0 +1,10 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+    <h1>registration_form.html</h1>
+    <p>Resister or die!</p>
+    <form method="POST">
+      {% csrf_token %}
+      {{ form }}
+      <button class="btn btn-default" type="submit" name="Login"/>Login</button>
+    </form>
+{% endblock %}

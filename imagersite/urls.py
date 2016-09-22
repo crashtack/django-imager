@@ -26,10 +26,21 @@ urlpatterns = [
     url(r'^$', home_view, name='homepage'),
     url(r'^logout/$', logout, {'next_page': '/'}),
     url(r'^', include('django.contrib.auth.urls')),
-    url(r'accounts/^', include('registration.backends.hmac.urls')),
+    url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^profile', include('imager_profile.urls')),
 ]
 
+"""
+    Other active Routes:
+        /login/ -----------------------> /registration/login.html
+        /accounts/register/ -----------> /registration/registration_form.html
+        /accounts/register/complete/ --> /registration/registration_complete.html
+        /accounts/register/closed/ ----> /registration/registration_closed.html
+        /accounts/activate/complete/ --> /registration/activation_complete.html
+        url(r'^activate/(?P<activation_key>[-:\w]+)/$',
+                views.ActivationView.as_view(),
+                name='registration_activate')  -----> /nowhere yet.
+"""
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
