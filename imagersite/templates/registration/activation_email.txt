@@ -1,1 +1,9 @@
 This is an activation email. Click the link. NOW!
+
+http://{{ site }}/activate/{{ activation_key }}/
+
+{{ expiration_days }}
+
+{{ user }}
+
+{{ site }}
