@@ -19,7 +19,6 @@ from django.conf import settings
 from django.contrib import admin
 from imagersite.views import home_view
 from django.contrib.auth.views import logout
-import registration
 
 
 urlpatterns = [
@@ -28,6 +27,7 @@ urlpatterns = [
     url(r'^logout/$', logout, {'next_page': '/'}),
     url(r'^', include('django.contrib.auth.urls')),
     url(r'accounts/^', include('registration.backends.hmac.urls')),
+    url(r'^profile', include('imager_profile.urls')),
 ]
 
 
