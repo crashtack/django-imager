@@ -54,7 +54,7 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'imagersite.urls'
 
 TEMPLATES = [
-    {   
+    {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [os.path.join(BASE_DIR, 'imagersite', 'templates')],
         # 'DIRS': [os.path.join(BASE_DIR, 'templates')],
@@ -127,3 +127,4 @@ USE_TZ = True
 STATIC_URL = '/static/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
+ACCOUNT_ACTIVATION_DAYS = 365
