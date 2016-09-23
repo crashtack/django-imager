@@ -52,33 +52,32 @@ class Photographer(models.Model):
 
 
 class Address(models.Model):
-    photographer_profile = models.ForeignKey(
+    photographer = models.ForeignKey(
         Photographer,
         on_delete=models.CASCADE,
-        primary_key=True,
-        related_name='Addresses',  # TODO: look this up and set it
-    )
+        blank=True,
+        null=True)
     default = models.BooleanField('Default Address', default=False)
     address_1 = models.CharField('Street Address 1',
                                  max_length=255,
-                                 blank=True,  # it's valid to be empty in Python
-                                 null=True)   # allow it to be empty in DB
+                                 blank=True,
+                                 default='')   # allow it to be empty in DB
     address_2 = models.CharField('Street Address 2',
                                  max_length=255,
                                  blank=True,
-                                 null=True)
+                                 default='')
     city = models.CharField('City',
                             max_length=128,
                             blank=True,
-                            null=True)
+                            default='')
     state = models.CharField('State',
                              max_length=2,
                              blank=True,
-                             null=True)
+                             default='')
     post_code = models.CharField('Zip Code',
                                  max_length=7,
                                  blank=True,
-                                 null=True)
+                                 default='')
 
 
 class Equipment(models.Model):
@@ -91,7 +90,6 @@ class SocialMedia(models.Model):
     photographer_profile = models.ForeignKey(
         Photographer,
         on_delete=models.CASCADE,
-        primary_key=True,
         related_name='SocialMedia',  # TODO: look this up and set it
     )
     reason_i_like_bacon = models.CharField(max_length=200,
