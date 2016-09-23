@@ -70,3 +70,27 @@ class Album(models.Model):
 
     def __str__(self):
         return self.title
+
+
+"""
+from django.db import Q
+
+
+q1 = Q(published='pub')
+q2 = Q(published='shr')
+
+query = q1 | q2
+
+random_photo = Photographer.objects.filter(query).order_by('?').first()
+
+def some_view(request):
+    photo_filter = ['pub']
+    if request.user.is_authenticated:
+        photo_filter.append('shr')
+
+    random_photo = Photographer.objects.filter(published__in=photo_filter).order_by('?').first()
+
+"""
+
+
+    #

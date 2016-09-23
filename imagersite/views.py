@@ -4,7 +4,9 @@ from django.template import loader
 
 def home_view(request):
     template = loader.get_template('imagersite/home.html')
-    response_body = template.render()
+    context = {'request': request}
+    response_body = template.render(context=context)
+    # import pdb; pdb.set_trace()
     return HttpResponse(response_body)
 
 

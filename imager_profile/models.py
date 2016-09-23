@@ -34,7 +34,8 @@ class Photographer(models.Model):
                                  default=uuid.uuid4,
                                  editable=False)
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
+                                on_delete=models.CASCADE,
+                                )
     has_portfolios = models.BooleanField(default=False)
     portfolio_url = models.CharField(max_length=255, blank=True)
 
