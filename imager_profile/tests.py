@@ -9,19 +9,23 @@ class UserFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = User
 
-    username = 'bob'
-    email = factory.LazyAttribute(
-        lambda x: "{}@example.com".format(x.username)
+    username = factory.Sequence(lambda n: "user{}".format(n))
+    email = factory.Sequence(
+        lambda n: "user{}@example.com".format(n)
     )
 
 
 class ProfileTestCase(TestCase):
 
     def setUp(self):
-        self.user = UserFactory.create()
-        self.user.set_password('secret')
-        self.user.save()
+        self.user = UserFactory.build()
 
-    def test_foo(self):
-        import pdb; pdb.set_trace()
-        self.assertTrue(True)
+    def test_profile_is_created_when_user_is_saved(self):
+        self.assertTrue(Photographer.objects.count() == 0)
+        self.user.save()
+        self.assertTrue(Photographer.objects.count() == 1)
+
+    def test_profile_str_is_user_username(self):
+        self.user.save()
+        profile = Photographer.objects.get(user=self.user)
+        self.assertEqual(str(profile), self.user.username)

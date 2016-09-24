@@ -40,8 +40,7 @@ class Photographer(models.Model):
     portfolio_url = models.CharField(max_length=255, blank=True)
 
     def __str__(self):
-        fn = self.user.get_full_name().strip() or self.user.get_username()
-        return "{}: {}".format(fn, self.user_uuid)
+        return self.user.get_full_name() or self.user.username
 
     @property
     def is_active(self):
@@ -52,7 +51,7 @@ class Photographer(models.Model):
 
 
 class Address(models.Model):
-    photographer_profile = models.ForeignKey(
+    photographer_profile = models.OneToOneField(
         Photographer,
         on_delete=models.CASCADE,
         primary_key=True,
@@ -88,7 +87,7 @@ class Equipment(models.Model):
 
 
 class SocialMedia(models.Model):
-    photographer_profile = models.ForeignKey(
+    photographer_profile = models.OneToOneField(
         Photographer,
         on_delete=models.CASCADE,
         primary_key=True,

@@ -1,10 +1,19 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
-    <h1>Your Profile</h1>
-    {{ photographer }}
-    {% for address in photographer.addresses.all %}
-      {% if address.public %}
-        {% include 'imager_profile/address_template.html' %}
-      {% endif %}
-    {% endfor %}
+    {% if user.is_authenticated %}
+        <h1>Your Profile</h1>
+        <p>username
+        <br>
+        {{ user.photographer }}</p>
+        <p>uuid
+        <br>
+        {{ user.photographer.user_uuid }}</p>
+    {% else %}
+    <p>Please login to view your profile</p>
+    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
+    <p>Not  a member?</p>
+    <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
+      Sign Up</a>
+    {% endif %}
+
 {% endblock %}
