@@ -80,9 +80,14 @@ class Address(models.Model):
 
 
 class Equipment(models.Model):
-    equipment_type = models.CharField(max_length=200, blank=True, null=True)
+    photographer_profile = models.OneToOneField(
+        Photographer,
+        on_delete=models.CASCADE,
+    )
+    eq_type = models.CharField(max_length=200, blank=True, null=True)
     make = models.CharField(max_length=200, blank=True, null=True)
     model = models.CharField(max_length=200, blank=True, null=True)
+    public = models.BooleanField(default=False)
 
 
 class SocialMedia(models.Model):
@@ -91,6 +96,7 @@ class SocialMedia(models.Model):
         on_delete=models.CASCADE,
         related_name='SocialMedia',  # TODO: look this up and set it
     )
+    public = models.BooleanField(default=False)
     reason_i_like_bacon = models.CharField(max_length=200,
                                            blank=True,
                                            null=True)
