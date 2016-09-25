@@ -25,7 +25,7 @@ class Photo(models.Model):
                              height_field=None,
                              width_field=None, max_length=100)
 
-    title = models.CharField("Title", max_length=255, blank=True)
+    title = models.CharField("Title", name='title', max_length=255, blank=True)
     height_field = models.IntegerField("Height", blank=True)
     width_field = models.IntegerField("Width", blank=True)
     latitude = models.IntegerField("Latitude", blank=True)
@@ -47,7 +47,7 @@ class Photo(models.Model):
 
     def __str__(self):
         '''this is a  doc string'''
-        return ''.format(self.likes_cheese)
+        return self.title
 
     class Meta:
         ordering = ('date_created',)

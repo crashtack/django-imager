@@ -14,9 +14,9 @@ def home_view(request):
     template = loader.get_template('imagersite/home.html')
     # if request.user.is_authenticated:
     #     photo = Photographer.objects.filter(published='published').order_by('?').first()
-    photo = Photo.objects.filter(published='published').order_by('?').first()
+    photo = Photo.objects.filter(published='public').order_by('?').first()
 
-    context = {'request': request, 'photo': photo}
+    context = {'request': request, 'photo': photo, 'message': 'hello!'}
     response_body = template.render(context=context)
     # import pdb; pdb.set_trace()
     return HttpResponse(response_body)
