@@ -47,7 +47,7 @@ class Photo(models.Model):
 
     def __str__(self):
         '''this is a  doc string'''
-        return self.image_file
+        return ''.format(self.likes_cheese)
 
     class Meta:
         ordering = ('date_created',)
