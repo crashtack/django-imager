@@ -36,6 +36,7 @@ class ProfileTestCase(TestCase):
         self.user.save()
         assert len(PatronProfileManager.get_queryset(self)) == 1
         self.user.is_active = False
+        self.user.save()
         assert len(PatronProfileManager.get_queryset(self)) == 0
         # import pdb; pdb.set_trace()
 
