@@ -2,6 +2,7 @@ from django.http import HttpResponse
 from django.template import loader
 from imager_images.models import Photo
 from django.db.models import Q
+from django.shortcuts import render
 
 
 q1 = Q(published='public')
@@ -11,14 +12,12 @@ query = q1 | q2
 
 
 def home_view(request):
-    template = loader.get_template('imagersite/home.html')
     if request.user.is_authenticated:
         photo = Photo.objects.filter(query).order_by('?').first()
     photo = Photo.objects.filter(q1).order_by('?').first()
+    context = {'request': request, 'photo': photo, 'message': 'filepath'}
 
-    context = {'request': request, 'photo': photo, 'message': 'hello!'}
-    response_body = template.render(context=context)
-    return HttpResponse(response_body)
+    return render(request, 'imagersite/home.html', context=context)
 
 
 def profile_view(request):
