@@ -3,19 +3,23 @@ import uuid
 from django.db import models
 from django.conf import settings
 from django.utils.encoding import python_2_unicode_compatible
+from imager_profile.models import Photographer
 
 
 def user_directory_path(instance, filename):
     ''' file will be uploaded to MEDIA_ROOT/user_<id>/%Y%m%d<filename>
         this is not true it will return: MEDIA_ROOT/user_<id>/<filename>
     '''
-    return 'user_{0}/%Y%m%d/{1}'.format(instance.user.id, filename)
+    # return 'user_{0}/%Y%m%d/{1}'.format(instance.user.id, filename)
+    return '{0}/{1}'.format(instance.photographer, filename)
 
 
 class Photo(models.Model):
     '''A Photo belonging to a usr'''
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
+    photographer = models.ForeignKey(Photographer,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
     albums = models.ManyToManyField('Album')
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
@@ -55,8 +59,10 @@ class Photo(models.Model):
 
 class Album(models.Model):
     '''An Album of Photos'''
-    user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
+    photographer = models.ForeignKey(Photographer,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
     title = models.CharField("Title", max_length=255, blank=True)
     description = models.CharField("Description", max_length=255, blank=True)
     cover_photo = models.CharField("Cover Photo", max_length=255, blank=True)

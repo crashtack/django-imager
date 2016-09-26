@@ -8,8 +8,8 @@
     <p>Not  a member?</p>
     <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
       Sign Up</a>
-    <h3>This image was chosen at random</h3>
+    <h3>The bellow image is chosen at random from all published photos</h3>
     <p>{{message}}: {{ photo.file }}</p>
-    <img src="{{ photo.file }}" width="500">
+    <img src="media/{{ photo.file }}" width="500">
 
 {% endblock %}
