@@ -17,7 +17,7 @@ def home_view(request):
     photo = Photo.objects.filter(q1).order_by('?').first()
     context = {'request': request, 'photo': photo, 'message': 'filepath'}
 
-    return render(request, 'imagersite/home.html', context=context)
+    return render(request, 'imagersite/home.html', context)
 
 
 def profile_view(request):
