@@ -35,7 +35,15 @@ class ProfileTestCase(TestCase):
     def test_get_queryset(self):
         self.user.save()
         assert len(PatronProfileManager.get_queryset(self)) == 1
+        self.user.is_active = False
+        assert len(PatronProfileManager.get_queryset(self)) == 0
+        # import pdb; pdb.set_trace()
 
+    def test_is_active(self):
+        '''tests that the created user is activie'''
+        self.user.save()
+        # import pdb; pdb.set_trace()
+        self.assertEquals(User.is_active, True)
 
 
     # def test_email_on_registration(self):

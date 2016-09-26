@@ -40,10 +40,6 @@ class Photographer(models.Model):
     def __str__(self):
         return self.user.get_full_name() or self.user.username
 
-    @property
-    def is_active(self):
-        return self.user.is_active
-
     objects = models.Manager()
     active = PatronProfileManager()
 
