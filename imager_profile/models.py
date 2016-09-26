@@ -51,12 +51,15 @@ class Photographer(models.Model):
 
 
 class Address(models.Model):
-    photographer_profile = models.OneToOneField(
-        Photographer,
-        on_delete=models.CASCADE,
-        blank=True,
-        null=True)
+    photographer = models.ForeignKey(Photographer,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
     default = models.BooleanField('Default Address', default=False)
+    title = models.CharField('Title',
+                             max_length=255,
+                             blank=True,
+                             default='Home')
     address_1 = models.CharField('Street Address 1',
                                  max_length=255,
                                  blank=True,
@@ -78,20 +81,38 @@ class Address(models.Model):
                                  blank=True,
                                  default='')
 
+    def __str__(self):
+        '''this is a  doc string'''
+        return '{}: {}'.format(self.photographer.user, self.title)
+
 
 class Equipment(models.Model):
-    equipment_type = models.CharField(max_length=200, blank=True, null=True)
+    photographer = models.ForeignKey(Photographer,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
+    title = models.CharField('Title',
+                             max_length=255,
+                             blank=True,
+                             default='Home')
+    eq_type = models.CharField(max_length=200, blank=True, null=True)
     make = models.CharField(max_length=200, blank=True, null=True)
     model = models.CharField(max_length=200, blank=True, null=True)
+    public = models.BooleanField(default=False)
 
 
 class SocialMedia(models.Model):
-    photographer_profile = models.OneToOneField(
-        Photographer,
-        on_delete=models.CASCADE,
-        related_name='SocialMedia',  # TODO: look this up and set it
-    )
+    photographer = models.ForeignKey(Photographer,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True)
+    title = models.CharField('Title',
+                             max_length=255,
+                             blank=True,
+                             default='Home')
+    public = models.BooleanField(default=False)
     reason_i_like_bacon = models.CharField(max_length=200,
                                            blank=True,
                                            null=True)
+    url = models.CharField(max_length=255, blank=True)
     # more fields
