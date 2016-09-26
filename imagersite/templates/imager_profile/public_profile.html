@@ -1,4 +1,18 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
-    <h1>{{ photographer.user_name }}'s Profile</h1>
+    <h1>{{ photographer }}'s Public Profile</h1>
+
+    {% for address in photographer.addresses.all %}
+      {% if address.public %}
+        {% include 'imager_profile/address_template.html' %}
+      {% endif %}
+    {% endfor %}
+
+    {% for equip in photographer.equipment.all %}
+      {% if equip.public %}
+        {% include 'imager_profile/equipment_template.html' %}
+      {% endif %}
+    {% endfor %}
+
+
 {% endblock %}
