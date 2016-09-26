@@ -2,7 +2,9 @@ from __future__ import unicode_literals
 from django.test import TestCase
 from django.contrib.auth.models import User
 import factory
-from imager_profile.models import Photographer
+from imager_profile.models import Photographer, PatronProfileManager
+from django.core import mail
+from registration.backends.hmac.views import RegistrationView
 
 
 class UserFactory(factory.django.DjangoModelFactory):
@@ -29,3 +31,29 @@ class ProfileTestCase(TestCase):
         self.user.save()
         profile = Photographer.objects.get(user=self.user)
         self.assertEqual(str(profile), self.user.username)
+
+    def test_get_queryset(self):
+        self.user.save()
+        assert len(PatronProfileManager.get_queryset(self)) == 1
+
+
+
+    # def test_email_on_registration(self):
+    #     creat_inactive_user(self, form)
+    #     self.assertEqual(len(mail.outbox), 1)
+
+
+# class EmailTest(TestCase):
+#     def test_send_email(self):
+#         # Send message.
+#         mail.send_mail(
+#             'Subject here', 'Here is the message.',
+#             'from@example.com', ['to@example.com'],
+#             fail_silently=False,
+#         )
+
+#         # Test that one message has been sent.
+#         self.assertEqual(len(mail.outbox), 1)
+
+#         # Verify that the subject of the first message is correct.
+#         self.assertEqual(mail.outbox[0].subject, 'Subject here')
