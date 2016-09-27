@@ -36,6 +36,9 @@ class Photographer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 )
+    bio = models.CharField('Bio',
+                           max_length=1024,
+                           blank=True)
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username
@@ -76,7 +79,7 @@ class Address(models.Model):
                                  default='')
 
     def __str__(self):
-        '''this is a  doc string'''
+        '''format the sting user: titile'''
         return '{}: {}'.format(self.photographer.user, self.title)
 
 

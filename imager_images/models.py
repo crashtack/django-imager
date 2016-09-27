@@ -19,7 +19,9 @@ class Photo(models.Model):
     photographer = models.ForeignKey(Photographer,
                                      on_delete=models.CASCADE,
                                      blank=True,
-                                     null=True)
+                                     null=True,
+                                     related_name='photos',
+                                     related_query_name='photo')
     albums = models.ManyToManyField('Album')
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
@@ -39,11 +41,12 @@ class Photo(models.Model):
     published = models.CharField(max_length=64,
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
-                                          ('public', 'public')])
+                                          ('public', 'public')],
+                                 default='private')
 
     def __str__(self):
         '''this is a  doc string'''
-        return self.title
+        return '{}: {}'.format(self.photographer.user, self.title)
 
     class Meta:
         ordering = ('date_created',)
@@ -64,7 +67,8 @@ class Album(models.Model):
     published = models.CharField(max_length=64,
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
-                                          ('public', 'public')])
+                                          ('public', 'public')],
+                                 default='private')
 
     def __str__(self):
-        return self.title
+        return '{}: {}'.format(self.photographer.user, self.title)
