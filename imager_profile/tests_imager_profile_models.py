@@ -17,14 +17,6 @@ class UserFactory(factory.django.DjangoModelFactory):
         lambda n: "user{}@example.com".format(n)
     )
 
-    # class Meta:
-    #     model = Address
-
-    # photographer = Photorapher.username
-    # address_1 = 12234
-    # city = 'seattle'
-    # state = 'wa'
-    # post_code = 1234567
 
 
 

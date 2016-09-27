@@ -26,7 +26,7 @@ class UserFactory(factory.django.DjangoModelFactory):
             count = 3
 
         make_album = getattr(AlbumFactory, 'create' if create else 'build')
-        albums = [make_album(group=self) for i in range(count)]
+        albums = [make_album(album=self) for i in range(count)]
 
         if not create:
             '''don't know what this does'''

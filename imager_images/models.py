@@ -16,13 +16,14 @@ def user_directory_path(instance, filename):
 
 class Photo(models.Model):
     '''A Photo belonging to a usr'''
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
                                      blank=True,
                                      null=True,
                                      related_name='photos',
                                      related_query_name='photo')
-    albums = models.ManyToManyField('Album')
+    albums = models.ManyToManyField('Album',
+                                    related_name='photos')
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
                                 editable=False)
@@ -34,10 +35,10 @@ class Photo(models.Model):
     title = models.CharField("Title", name='title', max_length=255, blank=True)
     height_field = models.IntegerField("Height", blank=True)
     width_field = models.IntegerField("Width", blank=True)
-    description = models.CharField("Description", max_length=255, blank=True)
+    description = models.CharField("Description", max_length=255, blank=True, null=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
-    date_pub = models.DateField('Date Published', editable=True, blank=True)
+    date_pub = models.DateField('Date Published', editable=True, blank=True, null=True)
     published = models.CharField(max_length=64,
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
@@ -46,7 +47,7 @@ class Photo(models.Model):
 
     def __str__(self):
         '''this is a  doc string'''
-        return '{}: {}'.format(self.photographer.user, self.title)
+        return '{}: {}'.format(self.photographer.username, self.title)
 
     class Meta:
         ordering = ('date_created',)
@@ -54,16 +55,17 @@ class Photo(models.Model):
 
 class Album(models.Model):
     '''An Album of Photos'''
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
                                      blank=True,
-                                     null=True)
+                                     null=True,
+                                     related_name='albums')
     title = models.CharField("Title", max_length=255, blank=True)
     description = models.CharField("Description", max_length=255, blank=True)
     cover_photo = models.CharField("Cover Photo", max_length=255, blank=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
-    date_pub = models.DateField('Date Published', editable=True, blank=True)
+    date_pub = models.DateField('Date Published', editable=True, blank=True, null=True)
     published = models.CharField(max_length=64,
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
@@ -71,4 +73,4 @@ class Album(models.Model):
                                  default='private')
 
     def __str__(self):
-        return '{}: {}'.format(self.photographer.user, self.title)
+        return '{}: {}'.format(self.photographer.username, self.title)
