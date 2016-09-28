@@ -3,7 +3,7 @@
 
     <h1>Imagersite</h1>
     {% if photo.file %}
-      <img src="media/{{ photo.file }}" width="500">
+      <img src="{{ photo.file.url }}" width="500">
     {% else %}
       <img src="media/home.jpeg" width="500">
     {% endif %}

@@ -10,8 +10,10 @@
     <!-- External CSS -->
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
 </head>
-<body>
+<body background='{{ photo.file.url }}' style="background-attachment:fixed">
 
 <div class="container">
     <h3>Welcome {{ request.user.username }}</h3>

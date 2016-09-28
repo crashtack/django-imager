@@ -7,8 +7,11 @@ from factory import post_generation, lazy_attribute
 from django.contrib.auth.models import User
 from imager_images.models import Photo, Album
 import datetime
+import os
 
 
+HERE = os.path.dirname(os.path.abspath(__file__))
+TEST_PHOTO_PATH = os.path.join(HERE, "didrctoryt", "filename")
 fake = FakerFactory.create()
 
 
@@ -65,9 +68,10 @@ class ModelTestCases(TestCase):
         self.assertTrue(self.album.description is not None)
 
     def test_album_many_photos(self):
-        self.album.photos.add(*PhotoFactory.create_batch(5, photographer=self.user))
+        num_photos = 3
+        self.album.photos.add(*PhotoFactory.create_batch(num_photos, photographer=self.user))
         # import pdb; pdb.set_trace()
-        self.assertEquals(len(self.album.photos.all()), 5)
+        self.assertEquals(len(self.album.photos.all()), num_photos)
         self.assertEquals(self.album.photos.all()[0].published, 'private')
         self.assertEqual(self.album.photos.all()[0].date_created, self.today)
         self.assertEqual(self.album.photos.all()[0].date_modified, self.today)
