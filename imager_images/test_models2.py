@@ -66,9 +66,12 @@ class ModelTestCases(TestCase):
 
     def test_album_many_photos(self):
         self.album.photos.add(*PhotoFactory.create_batch(5, photographer=self.user))
-        import pdb; pdb.set_trace()
-        
-        self.assertTrue('dog' == 'cat')
+        # import pdb; pdb.set_trace()
+        self.assertEquals(len(self.album.photos.all()), 5)
+        self.assertEquals(self.album.photos.all()[0].published, 'private')
+        self.assertEqual(self.album.photos.all()[0].date_created, self.today)
+        self.assertEqual(self.album.photos.all()[0].date_modified, self.today)
+        self.assertEqual(self.album.photos.all()[0].date_pub, None)
 
     def test_photo(self):
         self.photo = PhotoFactory(photographer=self.user)
