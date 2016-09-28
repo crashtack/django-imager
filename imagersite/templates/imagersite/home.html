@@ -1,15 +1,20 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
+
     <h1>Imagersite</h1>
-    <img src="media/home.jpeg" width="500">
+    {% if photo.file %}
+      <img src="{{ photo.file.url }}" width="500">
+    {% else %}
+      <img src="media/home.jpeg" width="500">
+    {% endif %}
+
     <p>Join the site or I will kill you!</p>
     <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
     <a class="btn btn-default" href="{% url 'logout' %}" role="button">Logout</a>
     <p>Not  a member?</p>
     <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
       Sign Up</a>
-    <h3>The bellow image is chosen at random from all published photos</h3>
+    <h3>The above image is chosen at random from all published photos</h3>
     <p>{{message}}: {{ photo.file }}</p>
-    <img src="media/{{ photo.file }}" width="500">
 
 {% endblock %}

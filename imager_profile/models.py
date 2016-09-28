@@ -24,8 +24,8 @@ class PatronProfileManager(models.Manager):
         model = "PatronProfile"
 
     def get_queryset(self):
-        qs = super(PatronProfileManager, self).get_queryset()
-        return qs.filter(user__is_active=True)
+        '''retrn a queryset of active users'''
+        return User.objects.filter(is_active=True)
 
 
 @python_2_unicode_compatible
@@ -36,25 +36,23 @@ class Photographer(models.Model):
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
                                 )
-    has_portfolios = models.BooleanField(default=False)
-    portfolio_url = models.CharField(max_length=255, blank=True)
+    bio = models.CharField('Bio',
+                           max_length=1024,
+                           blank=True)
 
     def __str__(self):
         return self.user.get_full_name() or self.user.username
-
-    @property
-    def is_active(self):
-        return self.user.is_active
 
     objects = models.Manager()
     active = PatronProfileManager()
 
 
 class Address(models.Model):
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
                                      blank=True,
-                                     null=True)
+                                     null=True,
+                                     related_name='addresses')
     default = models.BooleanField('Default Address', default=False)
     title = models.CharField('Title',
                              max_length=255,
@@ -67,7 +65,7 @@ class Address(models.Model):
     address_2 = models.CharField('Street Address 2',
                                  max_length=255,
                                  blank=True,
-                                 default='')
+                                 null=True)
     city = models.CharField('City',
                             max_length=128,
                             blank=True,
@@ -82,19 +80,20 @@ class Address(models.Model):
                                  default='')
 
     def __str__(self):
-        '''this is a  doc string'''
+        '''format the sting user: titile'''
         return '{}: {}'.format(self.photographer.user, self.title)
 
 
 class Equipment(models.Model):
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
                                      blank=True,
-                                     null=True)
+                                     null=True,
+                                     related_name='equipment')
     title = models.CharField('Title',
                              max_length=255,
                              blank=True,
-                             default='Home')
+                             default='pirmary camera')
     eq_type = models.CharField(max_length=200, blank=True, null=True)
     make = models.CharField(max_length=200, blank=True, null=True)
     model = models.CharField(max_length=200, blank=True, null=True)
@@ -102,17 +101,13 @@ class Equipment(models.Model):
 
 
 class SocialMedia(models.Model):
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
                                      blank=True,
-                                     null=True)
+                                     null=True,
+                                     related_name='socialmedia')
     title = models.CharField('Title',
                              max_length=255,
-                             blank=True,
-                             default='Home')
+                             blank=True,)
     public = models.BooleanField(default=False)
-    reason_i_like_bacon = models.CharField(max_length=200,
-                                           blank=True,
-                                           null=True)
     url = models.CharField(max_length=255, blank=True)
-    # more fields
