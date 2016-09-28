@@ -48,10 +48,11 @@ class Photographer(models.Model):
 
 
 class Address(models.Model):
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
                                      blank=True,
-                                     related_name='address')
+                                     null=True,
+                                     related_name='addresses')
     default = models.BooleanField('Default Address', default=False)
     title = models.CharField('Title',
                              max_length=255,
@@ -84,13 +85,15 @@ class Address(models.Model):
 
 
 class Equipment(models.Model):
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
-                                     blank=True,)
+                                     blank=True,
+                                     null=True,
+                                     related_name='equipment')
     title = models.CharField('Title',
                              max_length=255,
                              blank=True,
-                             default='Home')
+                             default='pirmary camera')
     eq_type = models.CharField(max_length=200, blank=True, null=True)
     make = models.CharField(max_length=200, blank=True, null=True)
     model = models.CharField(max_length=200, blank=True, null=True)
@@ -98,9 +101,11 @@ class Equipment(models.Model):
 
 
 class SocialMedia(models.Model):
-    photographer = models.ForeignKey(Photographer,
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
                                      on_delete=models.CASCADE,
-                                     blank=True,)
+                                     blank=True,
+                                     null=True,
+                                     related_name='socialmedia')
     title = models.CharField('Title',
                              max_length=255,
                              blank=True,)

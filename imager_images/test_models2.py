@@ -1,5 +1,5 @@
 from __future__ import unicode_literals
-from django.test import TestCase
+from django.test import TestCase, override_settings
 import factory
 # from faker import Faker
 from faker import Factory as FakerFactory
@@ -8,10 +8,13 @@ from django.contrib.auth.models import User
 from imager_images.models import Photo, Album
 import datetime
 import os
+import tempfile
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 TEST_PHOTO_PATH = os.path.join(HERE, "didrctoryt", "filename")
+TEST_MEDIA = tempfile.mkdtemp()
+
 fake = FakerFactory.create()
 
 
@@ -31,7 +34,7 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
     photographer = factory.SubFactory(UserFactory)
 
-    title = factory.lazy_attribute(lambda o: fake.sentence(nb_words=4))
+    title = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
     description = factory.lazy_attribute(lambda o: fake.sentence(nb_words=5))
 
 
@@ -56,8 +59,6 @@ class ModelTestCases(TestCase):
 
     def test_album(self):
         self.album = AlbumFactory(photographer=self.user)
-        # self.user = self.album.user.photographer
-        # import pdb; pdb.set_trace()
         self.client.force_login(user=self.user)
         self.assertTrue(self.album.published == 'private')
         self.assertTrue(type(self.album.title) == str)
@@ -67,20 +68,21 @@ class ModelTestCases(TestCase):
         self.assertEqual(self.album.cover_photo, '')
         self.assertTrue(self.album.description is not None)
 
+    @override_settings(MEDIA_ROOT=TEST_MEDIA)
     def test_album_many_photos(self):
         num_photos = 3
-        self.album.photos.add(*PhotoFactory.create_batch(num_photos, photographer=self.user))
-        # import pdb; pdb.set_trace()
+        self.album.photos.add(*PhotoFactory.create_batch(num_photos,
+            photographer=self.user)
+        )
         self.assertEquals(len(self.album.photos.all()), num_photos)
         self.assertEquals(self.album.photos.all()[0].published, 'private')
         self.assertEqual(self.album.photos.all()[0].date_created, self.today)
         self.assertEqual(self.album.photos.all()[0].date_modified, self.today)
         self.assertEqual(self.album.photos.all()[0].date_pub, None)
 
+    @override_settings(MEDIA_ROOT=TEST_MEDIA)
     def test_photo(self):
         self.photo = PhotoFactory(photographer=self.user)
-        # self.client.force_login(user=self.user)
-        # import pdb; pdb.set_trace()
         self.assertTrue(self.photo.photographer.username == self.user.username)
 
 
