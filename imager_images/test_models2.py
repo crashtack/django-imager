@@ -67,6 +67,7 @@ class ModelTestCases(TestCase):
     def test_album_many_photos(self):
         self.album.photos.add(*PhotoFactory.create_batch(5, photographer=self.user))
         import pdb; pdb.set_trace()
+        
         self.assertTrue('dog' == 'cat')
 
     def test_photo(self):
