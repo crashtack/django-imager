@@ -2,6 +2,7 @@ from django.core import mail
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
+import factory
 
 
 INVALID_REG_PARAMS = {
@@ -18,11 +19,30 @@ VALID_REG_PARAMS = {
     'password2': 'bob1234bob'
 }
 
+VALID_LOGIN_PARAMS = {
+    'username': 'bob24',
+    'password': 'supersecret'
+}
+
+INVALID_LOGIN_PARAMS = {
+    'username': 'bob24',
+    'password': 'notsupersecret'
+}
+
+
+class ValidatedUserFactory(factory.django.DjangoModelFactory):
+    class Meta:
+        model = User
+
+    username = 'bob24'
+    email = 'bob24@bob.com'
+
 
 class InValidRegistrationTests(TestCase):
 
     def setUp(self):
-        self.reg_invalid = self.client.post(reverse('registration_register'), INVALID_REG_PARAMS,)
+        self.reg_invalid = self.client.post(reverse('registration_register'),
+                                            INVALID_REG_PARAMS,)
 
     def test_user_not_in_db_after_invalid_reg(self):
         '''Test that there is no user in the database.'''
@@ -34,7 +54,8 @@ class InValidRegistrationTests(TestCase):
 
     def test_invalid_registration_no_redirect(self):
         '''Test valid registration redirects to complete page.'''
-        self.assertEqual(self.reg_invalid.context['request'].path, '/accounts/register/')
+        self.assertEqual(self.reg_invalid.context['request'].path,
+                         '/accounts/register/')
 
     def test_invalid_registration_validity(self):
         '''Test valid registration redirects to complete page.'''
@@ -44,7 +65,8 @@ class InValidRegistrationTests(TestCase):
 class ValidRegistrationTests(TestCase):
 
     def setUp(self):
-        self.reg_valid = self.client.post(reverse('registration_register'), VALID_REG_PARAMS,
+        self.reg_valid = self.client.post(reverse('registration_register'),
+                                          VALID_REG_PARAMS,
                                           follow=True)
 
     def test_user_in_db_after_reg(self):
@@ -61,7 +83,8 @@ class ValidRegistrationTests(TestCase):
                       self.reg_valid.redirect_chain)
 
     def test_new_reg_is_not_active(self):
-        '''Tests a user who has not clicked on the confirmation email is not active'''
+        '''Tests a user who has not clicked on the confirmation email
+           is not active'''
         self.assertFalse(User.objects.first().is_active)
 
     def test_reg_email_sent_to_user(self):
@@ -84,11 +107,71 @@ class RegistrationViewTests(TestCase):
         self.assertEquals(self.response.status_code, 200)
 
     def test_uses_correct_template(self):
-        '''assert the home page view is rendered with our templates'''
-        for template_name in ["imagersite/base.html", 'registration/registration_form.html']:
+        '''assert the registartaion page view is rendered with our templates'''
+        for template_name in ["imagersite/base.html",
+                              'registration/registration_form.html']:
             self.assertTemplateUsed(self.response, template_name, count=1)
 
     def test_for_registration_form(self):
         '''assert that theresponse contains a link to the resirataion page'''
         form_tag = b'<form method="POST">'
         assert form_tag in self.response.content
+
+
+class LoginViewTest(TestCase):
+
+    def setUp(self):
+        '''setup for login view tests'''
+        self.response = self.client.get(reverse('login'))
+
+    def test_login_page_exists(self):
+        """tests that the loging view existes"""
+        self.assertEquals(self.response.status_code, 200)
+
+    def test_uses_corretct_template(self):
+        '''checks that the login view is rendered wht the correct templates'''
+        for template_name in ['imagersite/base.html',
+                              'registration/login.html']:
+            self.assertTemplateUsed(self.response, template_name, count=1)
+
+    def test_for_login_form(self):
+        '''check to see the login form is there'''
+        expected = '<form method="POST">'
+        self.assertContains(self.response, expected)
+
+
+class LoginValidTest(TestCase):
+
+    def setUp(self):
+        '''creates a user so we can test login them in'''
+        self.user = ValidatedUserFactory.create()
+        self.user.set_password('supersecret')
+        self.user.save()
+        self.valid_creds = self.client.post(reverse('login'),
+                                            VALID_LOGIN_PARAMS,
+                                            follow=True)
+
+    def test_a_valid_user_can_login(self):
+        '''asserts that a user logs in and is rederected to the home page'''
+        self.assertIn(('/', 302), self.valid_creds.redirect_chain)
+        expected = b'<h3>Welcome bob24</h3>'
+        self.assertTrue(expected in self.valid_creds.content)
+
+
+class LoginInValidTest(TestCase):
+
+    def setUp(self):
+        '''creates a user so we can test for invalid login'''
+        self.user = ValidatedUserFactory.create()
+        self.user.set_password('supersecret')
+        self.user.save()
+        self.invalid_creds = self.client.post(reverse('login'),
+                                              INVALID_LOGIN_PARAMS,
+                                              follow=True)
+
+    def test_invalid_user_login(self):
+        '''asserts user is not logged in with invalid credentials'''
+        self.assertFalse(self.invalid_creds.redirect_chain)
+        self.assertFalse(self.invalid_creds.context['form'].is_valid())
+        expected = b'Please enter a correct username and password'
+        self.assertTrue(expected in self.invalid_creds.content)
