@@ -1,4 +1,3 @@
-from django.http import HttpResponse
 from django.template import loader
 from imager_images.models import Photo
 from django.db.models import Q
@@ -18,9 +17,3 @@ def home_view(request):
     context = {'request': request, 'photo': photo, 'message': 'filepath'}
 
     return render(request, 'imagersite/home.html', context)
-
-
-def profile_view(request):
-    template = loader.get_template('imager_profile/profile.html')
-    response_body = template.render()
-    return HttpResponse(response_body)

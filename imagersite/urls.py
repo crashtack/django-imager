@@ -28,6 +28,8 @@ urlpatterns = [
     url(r'^', include('django.contrib.auth.urls')),
     url(r'^accounts/', include('registration.backends.hmac.urls')),
     url(r'^profile/', include('imager_profile.urls')),
+    url(r'^images/', include('imager_images.urls')),
+
 ]
 
 """

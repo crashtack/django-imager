@@ -1,0 +1,18 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+    {% if user.is_authenticated %}
+        <h1>Your Pics</h1>
+        {% for image in images %}
+        <p> {{ image.title }}</p>
+        <img src='{{ image.file.url }}' width='100'/>
+        {% endfor %}
+
+    {% else %}
+    <p>Please login to view your profile</p>
+    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
+    <p>Not  a member?</p>
+    <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
+      Sign Up</a>
+    {% endif %}
+
+{% endblock %}
