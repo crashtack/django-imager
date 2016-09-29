@@ -7,9 +7,6 @@ class HomePageTestCase(TestCase):
     def setUp(self):
         self.response = self.client.get(reverse('homepage'))
 
-    # def tearDown(self):
-    #     pass
-
     def test_home_page_exists(self):
         '''assert that the rewpose for the hoepageurl is 200'''
         self.assertEquals(self.response.status_code, 200)
