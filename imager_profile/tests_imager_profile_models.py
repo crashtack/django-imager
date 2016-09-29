@@ -6,7 +6,6 @@ from faker import Factory as FakerFactory
 from factory import post_generation, lazy_attribute
 from imager_profile.models import Photographer, PatronProfileManager
 from imager_profile.models import Address, Equipment, SocialMedia
-from django.core import mail
 from registration.backends.hmac.views import RegistrationView
 import datetime
 
@@ -121,23 +120,3 @@ class ProfileTestCase(TestCase):
         self.assertEquals(self.user.socialmedia.all()[0].public, False)
         self.assertEquals(self.user.socialmedia.all()[0].url,
             'http://fakebook.com/user1234')
-
-    # def test_email_on_registration(self):
-    #     creat_inactive_user(self, form)
-    #     self.assertEqual(len(mail.outbox), 1)
-
-
-# class EmailTest(TestCase):
-#     def test_send_email(self):
-#         # Send message.
-#         mail.send_mail(
-#             'Subject here', 'Here is the message.',
-#             'from@example.com', ['to@example.com'],
-#             fail_silently=False,
-#         )
-
-#         # Test that one message has been sent.
-#         self.assertEqual(len(mail.outbox), 1)
-
-#         # Verify that the subject of the first message is correct.
-#         self.assertEqual(mail.outbox[0].subject, 'Subject here')
