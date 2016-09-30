@@ -1,6 +1,6 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
-    {% if user.is_authenticated %}
+
         <h1>Your Profile</h1>
         <p>username
         <br>
@@ -17,12 +17,5 @@
 
         <a href="/images/library/">Library page</a>
 
-    {% else %}
-    <p>Please login to view your profile</p>
-    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
-    <p>Not  a member?</p>
-    <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
-      Sign Up</a>
-    {% endif %}
 
 {% endblock %}

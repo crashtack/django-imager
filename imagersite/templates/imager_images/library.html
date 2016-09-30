@@ -1,18 +1,24 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
-    {% if user.is_authenticated %}
-        <h1>Your Pics</h1>
-        {% for image in images %}
+
+  <h2>Your Albums</h2>
+    <div class="row">
+      {% for album in albums %}
+        <div class='col-md-3'>
+          <p> {{ album.title }}</p>
+          <img src='{{ album.cover_photo.url }}' width='100'/>
+        </div>
+      {% endfor %}
+    </div>
+
+  <h2>Your Pics</h2>
+  <div class="row">
+    {% for image in images %}
+      <div class='col-md-3'>
         <p> {{ image.title }}</p>
         <img src='{{ image.file.url }}' width='100'/>
-        {% endfor %}
-
-    {% else %}
-    <p>Please login to view your profile</p>
-    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
-    <p>Not  a member?</p>
-    <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
-      Sign Up</a>
-    {% endif %}
+      </div>
+    {% endfor %}
+  </div>
 
 {% endblock %}
