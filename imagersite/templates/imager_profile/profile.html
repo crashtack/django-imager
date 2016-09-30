@@ -1,6 +1,6 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
-    {% if user.is_authenticated %}
+
         <h1>Your Profile</h1>
         <p>username
         <br>
@@ -8,12 +8,14 @@
         <p>uuid
         <br>
         {{ user.photographer.user_uuid }}</p>
-    {% else %}
-    <p>Please login to view your profile</p>
-    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
-    <p>Not  a member?</p>
-    <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
-      Sign Up</a>
-    {% endif %}
+        <p>number of images
+        <br>
+        {{ num_images }}</p>
+        <p>number of albums
+        <br>
+        {{ num_albums }}</p>
+
+        <a href="/images/library/">Library page</a>
+
 
 {% endblock %}

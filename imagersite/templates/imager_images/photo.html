@@ -1,0 +1,9 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+
+  <h1> {{ photo.title }}</h1>
+  <img src='{{ photo.file.url }}' width='600'/>
+
+
+{% endblock %}
