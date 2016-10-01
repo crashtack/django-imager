@@ -2,12 +2,13 @@
 <html>
 <head>
     <title>Imagersite</title>
-    <base href="/">
+    <!-- <base href="/"> -->
     <!-- Bootstrap CSS CDN-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
     <!-- External CSS -->
-<!--     <link rel="stylesheet" href="../static/main.css">
-    <link rel="stylesheet" href="{% static 'static/main.css' %}"> -->
+    <!-- {% load static %} -->
+    <!-- {% load staticfiles %} -->
+    <link rel="stylesheet" type="text/css" href="{% static "main.css" %}">
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
@@ -31,13 +32,13 @@
                     <li class="nav-item"><a href="/accounts/register/">Register</a></li>
                     <li class="nav-item"><a href="/profile">Profile</a></li>
                     <li class="nav-item"><a href="/images/library/">Pics and Albums</a></li>
+                    <li class="nav-item"><a>Welcome {{ request.user.username }}</a></li>
                 </ul>
             </div>
         </div>
     </nav><!-- End of navbar -->
 
-<div class="container">
-    <h3>Welcome {{ request.user.username }}</h3>
+<div class="container" id="content">
 
     {% block body %}
 
