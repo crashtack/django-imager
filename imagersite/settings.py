@@ -25,7 +25,7 @@ SECRET_KEY = '(f(2la%a4g2@k-ocb@*z4lo+(*wf*k-0uu9=lbcdht#^@f=*!p'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [*]
 
 
 # Application definition
@@ -131,3 +131,5 @@ MEDIA_URL = '/media/'
 ACCOUNT_ACTIVATION_DAYS = 7
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = '/profile'
+DEFAULT_FROM_EMAIL = '401.imagersite@gmail.com'
+SERVER_EMAIL = '401.imagersite@gmail.com'
