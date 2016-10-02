@@ -1,0 +1,23 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <img src='{{ album.cover_photo.url }}' width='200'/>
+    <h1>Album: {{ album.title }}</h1>
+    <p>photographer: {{ album.photographer }}</p>
+    <p>description: {{ album.description }}</p>
+    <p>date_created: {{ album.date_created }}</p>
+    <p>date_created: {{ album.date_created }}</p>
+    <p>date_modified: {{ album.date_modified }}</p>
+    <p>date_pub: {{ album.date_pub }}</p>
+    <p>published: {{ album.published }}</p>
+
+    <div class="row">
+        {% for photo in album.photos.all %}
+            <div class='col-md-3'>
+                <a href="/images/photos/{{photo.photo_id}}"><img src='{{ photo.file.url }}' height='200'/></a>
+            </div>
+        {% endfor %}
+    </div>
+
+
+{% endblock %}

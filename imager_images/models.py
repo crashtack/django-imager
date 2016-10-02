@@ -60,6 +60,9 @@ class Album(models.Model):
                                      blank=True,
                                      null=True,
                                      related_name='albums')
+    # album_id = models.UUIDField(primary_key=True,
+    #                             default=uuid.uuid4,
+    #                             editable=False)
     title = models.CharField("Title", max_length=255, blank=True)
     description = models.CharField("Description", max_length=255, blank=True)
     cover_photo = models.ImageField(upload_to=user_directory_path,
