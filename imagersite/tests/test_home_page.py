@@ -22,11 +22,11 @@ class HomePageTestCase(TestCase):
         for template_name in ["imagersite/base.html", 'imagersite/home.html']:
             self.assertTemplateUsed(self.response, template_name, count=1)
 
-    def test_login_botton(self):
-        '''assert homepage has login button'''
-        login_url = reverse('login')
-        expected = 'href="{}"'.format(login_url)
-        self.assertContains(self.response, expected, status_code=200)
+    # def test_login_botton(self):
+    #     '''assert homepage has login button'''
+    #     login_url = reverse('login')
+    #     expected = 'href="{}"'.format(login_url)
+    #     self.assertContains(self.response, expected, status_code=200)
 
     def test_context_contains_photo(self):
         """assert the context contains a photo file path"""

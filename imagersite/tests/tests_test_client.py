@@ -153,8 +153,8 @@ class LoginValidTest(TestCase):
 
     def test_a_valid_user_can_login(self):
         '''asserts that a user logs in and is rederected to the home page'''
-        self.assertIn(('/', 302), self.valid_creds.redirect_chain)
-        expected = b'<h3>Welcome bob24</h3>'
+        self.assertIn(('/profile', 302), self.valid_creds.redirect_chain)
+        expected = b'Welcome bob24'
         self.assertTrue(expected in self.valid_creds.content)
 
 

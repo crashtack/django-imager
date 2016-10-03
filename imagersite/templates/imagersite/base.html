@@ -27,12 +27,16 @@
             </div>
             <div id="navbar" class="collapse navbar-collapse">
                 <ul class="nav navbar-nav">
-                    <li class="nav-item"><a href="/login">login</a></li>
-                    <li class="nav-item"><a href="/logout">logout</a></li>
-                    <li class="nav-item"><a href="/accounts/register/">Register</a></li>
-                    <li class="nav-item"><a href="/profile">Profile</a></li>
-                    <li class="nav-item"><a href="/images/library/">Photos and Albums</a></li>
+                  {% if request.user.username %}
+                    <li class="nav-item"><a href="{% url 'logout' %}">logout</a></li>
+                    <li class="nav-item"><a href="{% url 'private_profile' %}">Profile</a></li>
+                    <li class="nav-item"><a href="{% url 'personal_library' %}">Photos and Albums</a></li>
                     <li class="nav-item"><a>Welcome {{ request.user.username }}</a></li>
+                  {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}">login</a></li>
+                    <li class="nav-item"><a href="{% url 'registration_register' %}">Register</a></li>
+                    <li class="nav-item"><a>Welcome Fellow Human</a></li>
+                  {% endif %}
                 </ul>
             </div>
         </div>
