@@ -8,13 +8,8 @@
       <img src="media/home.jpeg" width="500">
     {% endif %}
 
+  {% if not request.user.is_authenticated %}
     <p>Join the site or I will kill you!</p>
-    <a class="btn btn-default" href="{% url 'login' %}" role="button">Login</a>
-    <a class="btn btn-default" href="{% url 'logout' %}" role="button">Logout</a>
-    <p>Not  a member?</p>
-    <a class="btn btn-default" href="{% url 'registration_register' %}" role="button">
-      Sign Up</a>
-    <h3>The above image is chosen at random from all published photos</h3>
-    <p>{{message}}: {{ photo.file }}</p>
+  {% endif %}
 
 {% endblock %}

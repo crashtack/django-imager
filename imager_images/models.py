@@ -60,15 +60,12 @@ class Album(models.Model):
                                      blank=True,
                                      null=True,
                                      related_name='albums')
-    # album_id = models.UUIDField(primary_key=True,
-    #                             default=uuid.uuid4,
-    #                             editable=False)
     title = models.CharField("Title", max_length=255, blank=True)
     description = models.CharField("Description", max_length=255, blank=True)
     cover_photo = models.ImageField(upload_to=user_directory_path,
                                     height_field=None,
                                     width_field=None,
-                                    max_length=100)
+                                    max_length=100,)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
     date_pub = models.DateField('Date Published', editable=True, blank=True, null=True)

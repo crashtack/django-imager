@@ -1,4 +1,4 @@
-from settings import *
+from .settings import *
 import os
 
 DEBUG = False
@@ -11,5 +11,5 @@ DEFAULT_FROM_EMAIL = '401.imagersite@gmail.com'
 SERVER_EMAIL = '401.imagersite@gmail.com'
 
 DATABASES = {
-    'default': djdatabase_url.config(default="postgres://myname:mypass@myhost:5432/mydbname")
+    'default': dj_database_url.config(default="postgres://myname:mypass@myhost:5432/mydbname")
 }

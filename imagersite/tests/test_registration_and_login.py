@@ -2,7 +2,7 @@ from django.core import mail
 from django.test import TestCase
 from django.contrib.auth.models import User
 from django.urls import reverse
-import factory
+from imagersite.tests.factories import ValidatedUserFactory
 
 
 INVALID_REG_PARAMS = {
@@ -28,14 +28,6 @@ INVALID_LOGIN_PARAMS = {
     'username': 'bob24',
     'password': 'notsupersecret'
 }
-
-
-class ValidatedUserFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = User
-
-    username = 'bob24'
-    email = 'bob24@bob.com'
 
 
 class InValidRegistrationTests(TestCase):
@@ -153,8 +145,8 @@ class LoginValidTest(TestCase):
 
     def test_a_valid_user_can_login(self):
         '''asserts that a user logs in and is rederected to the home page'''
-        self.assertIn(('/', 302), self.valid_creds.redirect_chain)
-        expected = b'<h3>Welcome bob24</h3>'
+        self.assertIn(('/profile', 302), self.valid_creds.redirect_chain)
+        expected = b'Welcome bob24'
         self.assertTrue(expected in self.valid_creds.content)
 
 
@@ -175,3 +167,4 @@ class LoginInValidTest(TestCase):
         self.assertFalse(self.invalid_creds.context['form'].is_valid())
         expected = b'Please enter a correct username and password'
         self.assertTrue(expected in self.invalid_creds.content)
+
