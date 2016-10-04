@@ -1,7 +1,8 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
-
-    <img src='{{ album.cover_photo.url }}' width='200'/>
+    {% if album.cover_photo %}
+        <img src='{{ album.cover_photo.url }}' width='200'/>
+    {% endif %}
     <h1>Album: {{ album.title }}</h1>
     <p>photographer: {{ album.photographer }}</p>
     <p>description: {{ album.description }}</p>
@@ -12,11 +13,13 @@
     <p>published: {{ album.published }}</p>
 
     <div class="row">
-        {% for photo in album.photos.all %}
-            <div class='col-md-3'>
-                <a href="/images/photos/{{photo.photo_id}}"><img src='{{ photo.file.url }}' height='200'/></a>
-            </div>
-        {% endfor %}
+        {% if album.photos %}
+            {% for photo in album.photos.all %}
+                <div class='col-md-3'>
+                    <a href="/images/photos/{{photo.photo_id}}"><img src='{{ photo.file.url }}' height='200'/></a>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
 
 

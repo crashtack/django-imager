@@ -27,7 +27,6 @@ class ModelTestCases(TestCase):
         self.assertEqual(self.album.date_created, self.today)
         self.assertEqual(self.album.date_modified, self.today)
         self.assertEqual(self.album.date_pub, None)
-        self.assertEqual(self.album.cover_photo, '')
         self.assertTrue(self.album.description is not None)
 
     @override_settings(MEDIA_ROOT=TEST_MEDIA)
