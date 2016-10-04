@@ -15,6 +15,6 @@
         <br>
         {{ num_albums }}</p>
 
-        <a class="btn btn-default" href="/images/library/" role="button">See your photos and albums</a>
+        <a class="btn btn-default" href="{% url 'personal_library' %}" role="button">See your photos and albums</a>
 
 {% endblock %}
