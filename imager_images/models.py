@@ -65,7 +65,9 @@ class Album(models.Model):
     cover_photo = models.ImageField(upload_to=user_directory_path,
                                     height_field=None,
                                     width_field=None,
-                                    max_length=100,)
+                                    max_length=100,
+                                    blank=True,
+                                    null=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
     date_pub = models.DateField('Date Published', editable=True, blank=True, null=True)
