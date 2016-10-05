@@ -42,7 +42,6 @@ class AddPhotoTestCase(TestCase):
 
     def test_uploading_photo_redirects_correctly(self):
         self.client.force_login(self.user)
-        # import pdb; pdb.set_trace()
         with open(TEST_PHOTO_PATH, 'rb') as fh:
             data = {
                 'title': 'second',
