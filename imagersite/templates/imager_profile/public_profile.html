@@ -8,11 +8,4 @@
       {% endif %}
     {% endfor %}
 
-    {% for equip in photographer.equipment.all %}
-      {% if equip.public %}
-        {% include 'imager_profile/equipment_template.html' %}
-      {% endif %}
-    {% endfor %}
-
-
 {% endblock %}
