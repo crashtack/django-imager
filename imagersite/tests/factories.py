@@ -4,7 +4,7 @@ from faker import Factory as FakerFactory
 from django.contrib.auth.models import User
 from imager_images.models import Photo, Album
 from random import randint
-from imager_profile.models import Address, Equipment, SocialMedia
+from imager_profile.models import Address
 
 
 fake = FakerFactory.create()
@@ -39,30 +39,12 @@ class AddressFactory(factory.django.DjangoModelFactory):
     post_code = 1234567
 
 
-class EquipmentFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Equipment
-
-    photographer = factory.SubFactory(UserFactory)
-    model = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
-
-
-class SocialFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = SocialMedia
-
-    photographer = factory.SubFactory(UserFactory)
-    url = 'http://fakebook.com/user1234'
-
-
 class PhotoFactory(factory.django.DjangoModelFactory):
     class Meta:
         model = Photo
 
     photographer = factory.SubFactory(UserFactory)
     file = factory.django.ImageField(color='red')
-    height_field = 100
-    width_field = 100
     title = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
 
 

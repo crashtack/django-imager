@@ -48,8 +48,7 @@ class AddPhotoTestCase(TestCase):
                 'description': 'horay',
                 'file': fh,
                 'photographer': self.user.pk,
+                'published': 'private'
             }
             respones = self.client.post(self.url, data)
         self.assertEqual(respones.status_code, 302)
-
-

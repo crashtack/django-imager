@@ -2,7 +2,7 @@ from django.conf.urls import include, url
 from imager_profile.models import Photographer
 from django.views.generic import DetailView, TemplateView
 from imager_images.views import library_view
-from imager_images.views import UplaodPhotoView
+from imager_images.views import UplaodPhotoView, AddAlbumView
 from imager_images.models import Photo, Album
 
 
@@ -20,7 +20,12 @@ urlpatterns = [
         ),
         name='photo'),
 
-    url(r'^album/(?P<id>[a-f|0-9|-]+)$',
+    url(r'^album/add/$',
+        AddAlbumView.as_view(),
+        name='add_album'
+        ),
+
+    url(r'^album/(?P<id>[0-9]+)$',
         DetailView.as_view(
             template_name="imager_images/album.html",
             model=Album,
@@ -29,7 +34,7 @@ urlpatterns = [
         ),
         name='album'),
 
-    url(r'^photos/new/$',
+    url(r'^photos/add/$',
         UplaodPhotoView.as_view(),
         name='upload_photo',
         )
