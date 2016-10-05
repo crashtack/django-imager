@@ -9,6 +9,7 @@ from imager_images.models import Photo, Album
 import datetime
 import os
 import tempfile
+from random import randint
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -36,6 +37,8 @@ class AlbumFactory(factory.django.DjangoModelFactory):
 
     title = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
     description = factory.lazy_attribute(lambda o: fake.sentence(nb_words=5))
+    # id = int(b'{}'.format(factory.lazy_attribute(fake.ean(length=13)))
+    id = randint(1, 99999)
 
 
 class PhotoFactory(factory.django.DjangoModelFactory):
@@ -54,12 +57,13 @@ class ModelTestCases(TestCase):
     def setUp(self):
         self.user = UserFactory.create()
         self.client.force_login(user=self.user)
+        # import pdb; pdb.set_trace()
         self.album = AlbumFactory(photographer=self.user)
         self.today = datetime.date.today()
 
     def test_album(self):
-        self.album = AlbumFactory(photographer=self.user)
-        self.client.force_login(user=self.user)
+        # self.album = AlbumFactory(photographer=self.user)
+        # self.client.force_login(user=self.user)
         self.assertTrue(self.album.published == 'private')
         self.assertTrue(type(self.album.title) == str)
         self.assertEqual(self.album.date_created, self.today)
