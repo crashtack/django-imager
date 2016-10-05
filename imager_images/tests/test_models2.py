@@ -26,7 +26,6 @@ class ModelTestCases(TestCase):
         self.assertTrue(type(self.album.title) == str)
         self.assertEqual(self.album.date_created, self.today)
         self.assertEqual(self.album.date_modified, self.today)
-        self.assertEqual(self.album.date_pub, None)
         self.assertTrue(self.album.description is not None)
 
     @override_settings(MEDIA_ROOT=TEST_MEDIA)
@@ -45,4 +44,3 @@ class ModelTestCases(TestCase):
     def test_photo(self):
         self.photo = PhotoFactory(photographer=self.user)
         self.assertTrue(self.photo.photographer.username == self.user.username)
-
