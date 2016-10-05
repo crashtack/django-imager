@@ -34,7 +34,7 @@ urlpatterns = [
         ),
         name='album'),
 
-    url(r'^photos/new/$',
+    url(r'^photos/add/$',
         UplaodPhotoView.as_view(),
         name='upload_photo',
         )

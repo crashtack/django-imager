@@ -30,5 +30,5 @@ class AddAlbumView(CreateView):
 class UplaodPhotoView(CreateView):
     template_name = 'imager_images/upload_photo.html'
     model = Photo
-    fields = ['title', 'description', 'file', 'photographer']
+    fields = ['title', 'description', 'file', 'photographer', 'published']
     success_url = '/images/library'
