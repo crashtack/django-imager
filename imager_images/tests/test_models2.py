@@ -32,8 +32,8 @@ class ModelTestCases(TestCase):
     def test_album_many_photos(self):
         num_photos = 3
         self.album.photos.add(*PhotoFactory.create_batch(num_photos,
-            photographer=self.user)
-        )
+                              photographer=self.user)
+                              )
         self.assertEquals(len(self.album.photos.all()), num_photos)
         self.assertEquals(self.album.photos.all()[0].published, 'private')
         self.assertEqual(self.album.photos.all()[0].date_created, self.today)
