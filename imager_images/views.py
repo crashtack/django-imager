@@ -1,6 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from imager_images.models import Photo
+from django.views.generic import ListView, DetailView, CreateView
+from django.utils.decorators import method_decorator
+from django.urls import reverse
+
 
 @login_required
 def library_view(request):
@@ -11,3 +16,13 @@ def library_view(request):
     context = {'images': images, 'albums': albums}
 
     return render(request, 'imager_images/library.html', context)
+
+
+@method_decorator(login_required, name='dispatch')
+class UplaodPhotoView(CreateView):
+    template_name = 'imager_images/upload_photo.html'
+    model = Photo
+    fields = ['title', 'description', 'file', 'photographer']
+    success_url = '/images/library'
+
+

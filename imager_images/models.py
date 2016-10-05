@@ -33,8 +33,8 @@ class Photo(models.Model):
                              width_field=None, max_length=100)
 
     title = models.CharField("Title", name='title', max_length=255, blank=True)
-    height_field = models.IntegerField("Height", blank=True)
-    width_field = models.IntegerField("Width", blank=True)
+    height_field = models.IntegerField("Height", blank=True, null=True)
+    width_field = models.IntegerField("Width", blank=True, null=True)
     description = models.CharField("Description", max_length=255, blank=True, null=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)

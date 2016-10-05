@@ -2,6 +2,7 @@ from django.conf.urls import include, url
 from imager_profile.models import Photographer
 from django.views.generic import DetailView, TemplateView
 from imager_images.views import library_view
+from imager_images.views import UplaodPhotoView
 from imager_images.models import Photo, Album
 
 
@@ -27,4 +28,9 @@ urlpatterns = [
             context_object_name="album",
         ),
         name='album'),
+
+    url(r'^photos/new/$',
+        UplaodPhotoView.as_view(),
+        name='upload_photo',
+        )
 ]
