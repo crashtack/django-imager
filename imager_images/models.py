@@ -33,8 +33,8 @@ class Photo(models.Model):
                              width_field=None, max_length=100)
 
     title = models.CharField("Title", name='title', max_length=255, blank=True)
-    height_field = models.IntegerField("Height", blank=True)
-    width_field = models.IntegerField("Width", blank=True)
+    height_field = models.IntegerField("Height", blank=True, null=True)
+    width_field = models.IntegerField("Width", blank=True, null=True)
     description = models.CharField("Description", max_length=255, blank=True, null=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
@@ -60,19 +60,16 @@ class Album(models.Model):
                                      blank=True,
                                      null=True,
                                      related_name='albums')
-    # album_id = models.UUIDField(primary_key=True,
-                                # default=uuid.uuid4,
-                                # editable=False)
     title = models.CharField("Title", max_length=255, blank=True)
     description = models.CharField("Description", max_length=255, blank=True)
     cover_photo = models.ImageField(upload_to=user_directory_path,
                                     height_field=None,
                                     width_field=None,
-                                    max_length=100)
+                                    max_length=100,
+                                    blank=True,
+                                    null=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
-    # date_pub = models.DateField('Date Published', editable=True, blank=True,
-    #                             null=True)
     published = models.CharField(max_length=64,
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),

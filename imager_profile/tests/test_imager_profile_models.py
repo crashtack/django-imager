@@ -1,52 +1,11 @@
 from __future__ import unicode_literals
 from django.test import TestCase
 from django.contrib.auth.models import User
-import factory
-from faker import Factory as FakerFactory
-from factory import post_generation, lazy_attribute
 from imager_profile.models import Photographer, PatronProfileManager
-from imager_profile.models import Address, Equipment, SocialMedia
-from registration.backends.hmac.views import RegistrationView
 import datetime
+from imagersite.tests.factories import UserFactory, AddressFactory, EquipmentFactory, SocialFactory
+from imager_profile.models import Address
 
-fake = FakerFactory.create()
-
-
-class UserFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = User
-
-    username = factory.Sequence(lambda n: "user{}".format(n))
-    email = factory.Sequence(
-        lambda n: "user{}@example.com".format(n)
-    )
-
-
-class AddressFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Address
-
-    photographer = factory.SubFactory(UserFactory)
-    address_1 = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
-    city = factory.lazy_attribute(lambda o: fake.sentence(nb_words=1))
-    state = 'WA'
-    post_code = 1234567
-
-
-class EquipmentFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = Equipment
-
-    photographer = factory.SubFactory(UserFactory)
-    model = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
-
-
-class SocialFactory(factory.django.DjangoModelFactory):
-    class Meta:
-        model = SocialMedia
-
-    photographer = factory.SubFactory(UserFactory)
-    url = 'http://fakebook.com/user1234'
 
 
 class ProfileTestCase(TestCase):

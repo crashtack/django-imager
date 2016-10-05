@@ -6,7 +6,9 @@
         {% for album in albums %}
             <div class='col-md-3'>
                 <p> {{ album.title }}</p>
-                <a href="/images/album/{{album.id}}"><img src='{{ album.cover_photo.url }}' height='200'/></a>
+                {% if album.cover_photo %}
+                    <a href="/images/album/{{album.id}}"><img src='{{ album.cover_photo.url }}' height='200'/></a>
+                {% endif %}
             </div>
         {% endfor %}
     </div>
