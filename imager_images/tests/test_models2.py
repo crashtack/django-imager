@@ -7,7 +7,7 @@ from imagersite.tests.factories import UserFactory, AlbumFactory, PhotoFactory
 
 
 HERE = os.path.dirname(os.path.abspath(__file__))
-TEST_PHOTO_PATH = os.path.join(HERE, "didrctoryt", "filename")
+TEST_PHOTO_PATH = os.path.join(HERE, "directroy", "filename")
 TEST_MEDIA = tempfile.mkdtemp()
 
 
