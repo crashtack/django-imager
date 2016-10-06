@@ -25,10 +25,20 @@ class AddAlbumView(CreateView):
     fields = ['title', 'description', 'published', 'cover_photo']
     success_url = '/images/library'
 
+    def form_valid(self, form):
+        """add user to new album"""
+        form.instance.photographer = self.request.user
+        return super(AddAlbumView, self).form_valid(form)
+
 
 @method_decorator(login_required, name='dispatch')
-class UplaodPhotoView(CreateView):
+class UploadPhotoView(CreateView):
     template_name = 'imager_images/upload_photo.html'
     model = Photo
-    fields = ['title', 'description', 'file', 'photographer', 'published']
+    fields = ['title', 'description', 'file', 'published']
     success_url = '/images/library'
+
+    def form_valid(self, form):
+        """add user to new photo"""
+        form.instance.photographer = self.request.user
+        return super(AddAlbumView, self).form_valid(form)

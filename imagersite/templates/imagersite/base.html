@@ -31,10 +31,9 @@
                     <li class="nav-item"><a href="{% url 'logout' %}">logout</a></li>
                     <li class="nav-item"><a href="{% url 'private_profile' %}">Profile</a></li>
                     <li class="nav-item"><a href="{% url 'personal_library' %}">Photos and Albums</a></li>
-                    <li class="nav-item"><a>Welcome {{ request.user.username }}</a></li>
-                    <li class="nav-item"><a href="{% url 'upload_photo' %}">Uplaod photo</a></li>
+                    <li class="nav-item"><a href="{% url 'upload_photo' %}">Upload photo</a></li>
                     <li class="nav-item"><a href="{% url 'add_album' %}">Add album</a></li>
-
+                    <li class="nav-item"><a>Welcome {{ request.user.username }}</a></li>
                   {% else %}
                     <li class="nav-item"><a href="{% url 'login' %}">login</a></li>
                     <li class="nav-item"><a href="{% url 'registration_register' %}">Register</a></li>
