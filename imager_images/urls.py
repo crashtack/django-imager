@@ -3,6 +3,7 @@ from imager_profile.models import Photographer
 from django.views.generic import DetailView, TemplateView
 from imager_images.views import library_view
 from imager_images.views import UploadPhotoView, AddAlbumView, EditPhoto
+from imager_images.views import EditAlbumView
 from imager_images.models import Photo, Album
 
 
