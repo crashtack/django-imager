@@ -16,7 +16,7 @@
         {% if album.photos %}
             {% for photo in album.photos.all %}
                 <div class='col-md-3'>
-                    <a href="/images/photos/{{photo.photo_id}}"><img src='{{ photo.file.url }}' height='150'/></a>
+                    <a href="{% url 'photo' photo_id=image.photo_id %}"><img src='{{ photo.file.url }}' height='150'/></a>
                 </div>
             {% endfor %}
         {% endif %}

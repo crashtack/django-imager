@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from imager_images.models import Photo, Album
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 
@@ -16,6 +16,15 @@ def library_view(request):
     context = {'images': images, 'albums': albums}
 
     return render(request, 'imager_images/library.html', context)
+
+
+@login_required
+def album_view(request, id):
+    """simple album view"""
+    current_user = User.objects.filter(username=request.user).first()
+    photos = current_user.photos.filter(albums=request.album).all()
+    context = {'photos': photos, 'album': album}
+    return render(request, 'imager_images/album.html', context)
 
 
 @method_decorator(login_required, name='dispatch')
@@ -42,3 +51,11 @@ class UploadPhotoView(CreateView):
         """add user to new photo"""
         form.instance.photographer = self.request.user
         return super(AddAlbumView, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class EditPhoto(UpdateView):
+    template_name = 'imager_images/edit_photo.html'
+    model = Photo
+    fields = ['title', 'description', 'published']
+    success_url = '/images/library'

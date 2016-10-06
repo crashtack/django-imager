@@ -1,0 +1,14 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <h1>Edit your photo here</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+{% endblock %}
+
+<!-- (% url 'edit_photo' pk=photo.pk) -->

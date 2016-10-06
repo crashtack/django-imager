@@ -7,9 +7,10 @@
     <p>date_modified: {{ photo.date_modified }}</p>
     <p>date_pub: {{ photo.date_pub }}</p>
     <p>published: {{ photo.published }}</p>
-    <p>Part of the albums: This is a to do {{ photo.album.title }}</p>
-
+    <p>Part of the albums: This is a to do {{ photo.albums.title }}</p>
 
     <img src='{{ photo.file.url }}' width='500'/>
+    <br>
+    <p><a class="btn btn-primary" href="{% url 'edit_photo' photo_id=photo.photo_id %}">Edit</a></p>
 
 {% endblock %}
