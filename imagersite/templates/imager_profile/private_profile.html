@@ -1,20 +1,20 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
 
-        <h1>Your Private Profile</h1>
-        <p>username
-        <br>
-        {{ user.photographer }}</p>
-        <p>uuid
-        <br>
-        {{ user.photographer.user_uuid }}</p>
-        <p>number of images
-        <br>
-        {{ num_images }}</p>
-        <p>number of albums
-        <br>
-        {{ num_albums }}</p>
+    <h1>Your Private Profile</h1>
+    <p>username
+    <br>
+    {{ user.photographer }}</p>
+    <p>uuid
+    <br>
+    {{ user.photographer.user_uuid }}</p>
+    <p>number of images
+    <br>
+    {{ num_images }}</p>
+    <p>number of albums
+    <br>
+    {{ num_albums }}</p>
 
-        <a class="btn btn-default" href="{% url 'personal_library' %}" role="button">See your photos and albums</a>
+    <a class="btn btn-default" href="{% url 'personal_library' %}" role="button">See your photos and albums</a>
 
 {% endblock %}

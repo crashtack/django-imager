@@ -23,9 +23,7 @@ class Photo(models.Model):
                                      related_name='photos',
                                      related_query_name='photo')
     albums = models.ManyToManyField('Album',
-                                    related_name='photos',
-                                    blank=True,
-                                    null=True)
+                                    related_name='photos',)
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
                                 editable=False)
@@ -46,7 +44,6 @@ class Photo(models.Model):
                                  default='private')
 
     def __str__(self):
-        '''this is a  doc string'''
         return '{}: {}'.format(self.photographer.username, self.title)
 
     class Meta:
