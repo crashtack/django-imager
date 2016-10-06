@@ -11,12 +11,15 @@
     <p>date_modified: {{ album.date_modified }}</p>
     <p>date_pub: {{ album.date_pub }}</p>
     <p>published: {{ album.published }}</p>
+    <br>
+    <p><a class="btn btn-primary" href="{% url 'edit_album' id=album.id %}">Edit album</a></p>
+
 
     <div class="row">
         {% if album.photos %}
             {% for photo in album.photos.all %}
                 <div class='col-md-3'>
-                    <a href="{% url 'photo' photo_id=image.photo_id %}"><img src='{{ photo.file.url }}' height='150'/></a>
+                    <a href="{% url 'photo' photo_id=photo.photo_id %}"><img src='{{ photo.file.url }}' height='150'/></a>
                 </div>
             {% endfor %}
         {% endif %}

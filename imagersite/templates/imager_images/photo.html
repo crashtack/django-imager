@@ -9,7 +9,7 @@
     <p>published: {{ photo.published }}</p>
     <p>Part of the albums: This is a to do {{ photo.albums.title }}</p>
 
-    <img src='{{ photo.file.url }}' width='500'/>
+    <p><img src='{{ photo.file.url }}' width='500'/></p>
     <br>
     <p><a class="btn btn-primary" href="{% url 'edit_photo' photo_id=photo.photo_id %}">Edit</a></p>
 

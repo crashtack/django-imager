@@ -18,15 +18,6 @@ def library_view(request):
     return render(request, 'imager_images/library.html', context)
 
 
-@login_required
-def album_view(request, id):
-    """simple album view"""
-    current_user = User.objects.filter(username=request.user).first()
-    photos = current_user.photos.filter(albums=request.album).all()
-    context = {'photos': photos, 'album': album}
-    return render(request, 'imager_images/album.html', context)
-
-
 @method_decorator(login_required, name='dispatch')
 class AddAlbumView(CreateView):
     template_name = 'imager_images/add_album.html'
@@ -57,5 +48,14 @@ class UploadPhotoView(CreateView):
 class EditPhoto(UpdateView):
     template_name = 'imager_images/edit_photo.html'
     model = Photo
+    fields = ['title', 'description', 'published']
+    success_url = '/images/library'
+
+    EditAlbumView
+@method_decorator(login_required, name='dispatch')
+class EditAlbumView(UpdateView):
+    '''this is not a thinh'''
+    template_name = 'imager_images/edit_album.html'
+    model = Album
     fields = ['title', 'description', 'published']
     success_url = '/images/library'
