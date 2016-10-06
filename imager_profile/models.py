@@ -82,32 +82,3 @@ class Address(models.Model):
     def __str__(self):
         '''format the sting user: titile'''
         return '{}: {}'.format(self.photographer.user, self.title)
-
-
-class Equipment(models.Model):
-    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                     on_delete=models.CASCADE,
-                                     blank=True,
-                                     null=True,
-                                     related_name='equipment')
-    title = models.CharField('Title',
-                             max_length=255,
-                             blank=True,
-                             default='pirmary camera')
-    eq_type = models.CharField(max_length=200, blank=True, null=True)
-    make = models.CharField(max_length=200, blank=True, null=True)
-    model = models.CharField(max_length=200, blank=True, null=True)
-    public = models.BooleanField(default=False)
-
-
-class SocialMedia(models.Model):
-    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
-                                     on_delete=models.CASCADE,
-                                     blank=True,
-                                     null=True,
-                                     related_name='socialmedia')
-    title = models.CharField('Title',
-                             max_length=255,
-                             blank=True,)
-    public = models.BooleanField(default=False)
-    url = models.CharField(max_length=255, blank=True)
