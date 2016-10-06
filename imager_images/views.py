@@ -31,7 +31,7 @@ def album_view(request, id):
 class AddAlbumView(CreateView):
     template_name = 'imager_images/add_album.html'
     model = Album
-    fields = ['title', 'description', 'published', 'cover_photo']
+    fields = ['title', 'description', 'published']
     success_url = '/images/library'
 
     def form_valid(self, form):
