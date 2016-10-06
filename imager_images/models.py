@@ -24,8 +24,8 @@ class Photo(models.Model):
                                      related_query_name='photo')
     albums = models.ManyToManyField('Album',
                                     related_name='photos',
-                                    blank=True, 
-                                    null=True)
+                                    blank=True,
+                                    )
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
                                 editable=False)
