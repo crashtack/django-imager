@@ -23,7 +23,7 @@ class AddPhotoTestCase(TestCase):
         return response
 
     def test_add_photo_view_requires_login(self):
-        '''test add photo view requires login'''
+        """test add photo view requires login"""
         # import pdb; pdb.set_trace()
         login_url = reverse('auth_login')
         response = self.client.get(self.url, follow=True)
@@ -34,17 +34,17 @@ class AddPhotoTestCase(TestCase):
         self.assertTrue(where_i_went[0][0].startswith(login_url))
 
     def test_add_photo_availibel_to_logged_in(self):
-        '''test add photo view is availibel to logged in'''
+        """test add photo view is availibel to logged in"""
         response = self.get_loged_in_response()
         self.assertEqual(response.status_code, 200)
 
     def test_form_present_in_context(self):
-        '''test there is a form on the add photoview'''
+        """test there is a form on the add photoview"""
         response = self.get_loged_in_response()
         self.assertIn('form', response.context)
 
     def test_uploading_photo_redirects(self):
-        '''test_uploading_photo_redirects_correctly'''
+        """test_uploading_photo_redirects_correctly"""
         self.client.force_login(self.user)
         with open(TEST_PHOTO_PATH, 'rb') as fh:
             data = {
@@ -72,7 +72,7 @@ class AddAlbumTestCase(TestCase):
         return response
 
     def test_add_album_view_requires_login(self):
-        '''test add album view requires login'''
+        """test add album view requires login"""
         login_url = reverse('auth_login')
         response = self.client.get(self.url, follow=True)
         self.assertEqual(response.status_code, 200)
@@ -82,17 +82,17 @@ class AddAlbumTestCase(TestCase):
         self.assertTrue(where_i_went[0][0].startswith(login_url))
 
     def test_add_album_availibel_to_logged_in(self):
-        '''test add album view is availibel to logged in'''
+        """test add album view is availibel to logged in"""
         response = self.get_loged_in_response()
         self.assertEqual(response.status_code, 200)
 
     def test_form_present_in_context(self):
-        '''test there is a form on the add album view'''
+        """test there is a form on the add album view"""
         response = self.get_loged_in_response()
         self.assertIn('form', response.context)
 
     def test_uploading_album_redirects(self):
-        '''test_uploading_photo_redirects_correctly'''
+        """test_uploading_photo_redirects_correctly"""
         self.client.force_login(self.user)
         data = {
             'title': 'second',

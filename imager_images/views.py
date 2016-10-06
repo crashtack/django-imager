@@ -22,7 +22,7 @@ def library_view(request):
 class AddAlbumView(CreateView):
     template_name = 'imager_images/add_album.html'
     model = Album
-    fields = ['title', 'description', 'published', 'cover_photo']
+    fields = ['title', 'description', 'published']
     success_url = '/images/library'
 
     def form_valid(self, form):
@@ -41,4 +41,4 @@ class UploadPhotoView(CreateView):
     def form_valid(self, form):
         """add user to new photo"""
         form.instance.photographer = self.request.user
-        return super(AddAlbumView, self).form_valid(form)
+        return super(UploadPhotoView, self).form_valid(form)
