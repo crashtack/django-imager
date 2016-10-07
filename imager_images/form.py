@@ -3,15 +3,16 @@ from imager_images.models import Album, Photo
 
 
 class AlbumEditForm(forms.ModelForm):
-    class Meta:
-        model = Album
-        widgets = {
-            'photos': forms.CheckboxSelectMultiple,
-        }
-
-        fields = [
-            'photos',
-        ]
+    pass
+#     class Meta:
+#         model = Album
+#         widgets = {
+#             'photos': forms.CheckboxSelectMultiple,
+#         }
+#
+#         fields = [
+#             'photos',
+#         ]
 
     # def __init__(self, *args, **kwargs):
     #     user = kwargs.pop('user')
