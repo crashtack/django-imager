@@ -12,7 +12,7 @@
     <p>date_pub: {{ album.date_pub }}</p>
     <p>published: {{ album.published }}</p>
     <br>
-    <p><a class="btn btn-primary" href="{% url 'edit_album' id=album.id %}">Edit album</a></p>
+    <p><a class="btn btn-primary" href="{% url 'edit_album' pk=album.pk %}">Edit album</a></p>
 
 
     <div class="row">
