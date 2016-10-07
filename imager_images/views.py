@@ -5,6 +5,7 @@ from imager_images.models import Photo, Album
 from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.urls import reverse
+from imager_images.form import EditAlbumForm
 
 
 @login_required
@@ -55,7 +56,12 @@ class EditPhoto(UpdateView):
 @method_decorator(login_required, name='dispatch')
 class EditAlbumView(UpdateView):
     '''this is not a thinh'''
+    form_class = EditAlbumForm
     template_name = 'imager_images/edit_album.html'
-    model = Album
-    fields = ['title', 'description', 'published']
     success_url = '/images/library'
+    queryset = Album.objects.all()
+
+    def get_form_kwargs(self):
+        kwargs = super(EditAlbumView, self).get_form_kwargs()
+        kwargs.update({'photographer': self.request.user})
+        return kwargs

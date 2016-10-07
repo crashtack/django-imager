@@ -3,6 +3,7 @@ from imager_profile.models import Photographer
 from django.views.generic import DetailView, TemplateView
 from imager_images.views import library_view
 from imager_images.views import UploadPhotoView, AddAlbumView, EditPhoto
+from imager_images.views import EditAlbumView
 from imager_images.models import Photo, Album
 
 
@@ -17,11 +18,11 @@ urlpatterns = [
         name='add_album'
         ),
 
-    url(r'^album/(?P<id>[a-f|0-9|-]+)$',
+    url(r'^album/(?P<pk>[0-9]+)$',
         DetailView.as_view(
             template_name="imager_images/album.html",
             model=Album,
-            pk_url_kwarg='id',
+            # pk_url_kwarg='id',
             context_object_name="album",
         ),
         name='album'),
@@ -49,7 +50,7 @@ urlpatterns = [
         ),
         name='edit_photo'),
 
-    url(r'^album/(?P<id>[a-z|0-9|-]+)/edit/$',
+    url(r'^album/(?P<pk>[0-9]+)/edit/$',
         EditAlbumView.as_view(),
         name='edit_album'
         ),
