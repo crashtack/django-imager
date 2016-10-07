@@ -2,20 +2,26 @@ from django import forms
 from imager_images.models import Album, Photo
 
 
-class AlbumEditForm(forms.ModelForm):
-    pass
-#     class Meta:
-#         model = Album
-#         widgets = {
-#             'photos': forms.CheckboxSelectMultiple,
-#         }
-#
-#         fields = [
-#             'photos',
-#         ]
+class EditAlbumForm(forms.ModelForm):
+    class Meta:
+        model = Album
+        widgets = {
+            'photos': forms.CheckboxSelectMultiple,
+        }
 
-    # def __init__(self, *args, **kwargs):
-    #     user = kwargs.pop('user')
-    #     super(AlbumEditForm, self).__init__(*args, **kwargs)
-    #     q1 = Photo.objects.filter(user=user)
-    #     self.fields['photos'].querset = q1
+        fields = [
+            'title',
+            'description',
+            'cover_photo',
+            'photos',
+        ]
+
+    photos = forms.ModelMultipleChoiceField(
+        queryset=Photo.objects.all()
+    )
+
+    def __init__(self, *args, **kwargs):
+        photographer = kwargs.pop('photographer')
+        super(EditAlbumForm, self).__init__(*args, **kwargs)
+        q1 = Photo.objects.filter(photographer=photographer)
+        self.fields['photos'].queryset = q1
