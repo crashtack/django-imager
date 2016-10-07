@@ -55,7 +55,6 @@ class EditPhoto(UpdateView):
 
 @method_decorator(login_required, name='dispatch')
 class EditAlbumView(UpdateView):
-    '''this is not a thinh'''
     form_class = EditAlbumForm
     template_name = 'imager_images/edit_album.html'
     success_url = '/images/library'

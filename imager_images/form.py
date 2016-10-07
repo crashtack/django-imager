@@ -17,7 +17,7 @@ class EditAlbumForm(forms.ModelForm):
         ]
 
     photos = forms.ModelMultipleChoiceField(
-        queryset=Photo.objects.all()
+        queryset=Photo.objects.all(), required=False
     )
 
     def __init__(self, *args, **kwargs):
@@ -25,3 +25,10 @@ class EditAlbumForm(forms.ModelForm):
         super(EditAlbumForm, self).__init__(*args, **kwargs)
         q1 = Photo.objects.filter(photographer=photographer)
         self.fields['photos'].queryset = q1
+
+    def save(self, commit=True):
+        """enables photos to be saved"""
+        photos = self.cleaned_data['photos']
+        instance = super(EditAlbumForm, self).save(commit)
+        instance.photos.add(*photos)
+        return instance
