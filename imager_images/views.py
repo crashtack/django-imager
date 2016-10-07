@@ -2,9 +2,10 @@ from django.shortcuts import render
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from imager_images.models import Photo, Album
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.urls import reverse
+from imager_images.form import AlbumEditForm
 
 
 @login_required
@@ -35,10 +36,28 @@ class AddAlbumView(CreateView):
 class UploadPhotoView(CreateView):
     template_name = 'imager_images/upload_photo.html'
     model = Photo
-    fields = ['title', 'description', 'file', 'published']
+    fields = ['title', 'description', 'file', 'published',]
     success_url = '/images/library'
 
     def form_valid(self, form):
         """add user to new photo"""
         form.instance.photographer = self.request.user
         return super(UploadPhotoView, self).form_valid(form)
+
+
+@method_decorator(login_required, name='dispatch')
+class EditPhoto(UpdateView):
+    template_name = 'imager_images/edit_photo.html'
+    model = Photo
+    fields = ['title', 'description', 'published']
+    success_url = '/images/library'
+
+
+@method_decorator(login_required, name='dispatch')
+class EditAlbumView(UpdateView):
+    '''this is not a thinh'''
+    form_class = AlbumEditForm
+    template_name = 'imager_images/edit_album.html'
+    model = Album
+    # fields = ['title', 'description', 'published']
+    success_url = '/images/library'
