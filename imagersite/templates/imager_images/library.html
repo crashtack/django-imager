@@ -5,7 +5,7 @@
     <div class="row">
         {% for album in albums %}
             <div class='col-md-3'>
-                <h3><a href="{% url 'album' id=album.pk %}">{{ album.title }}</a></h3>
+                <h3><a href="{% url 'album' pk=album.pk %}">{{ album.title }}</a></h3>
                 {% if album.cover_photo %}
                     <a href="{% url 'album' id=album.pk %}"><img src='{{ album.cover_photo.url }}' height='150'/></a>
                 {% endif %}
