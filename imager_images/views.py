@@ -51,7 +51,7 @@ class EditPhoto(UpdateView):
     fields = ['title', 'description', 'published']
     success_url = '/images/library'
 
-    EditAlbumView
+
 @method_decorator(login_required, name='dispatch')
 class EditAlbumView(UpdateView):
     '''this is not a thinh'''
