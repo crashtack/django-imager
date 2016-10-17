@@ -5,7 +5,7 @@
     {% if photo.file %}
       <img src="{{ photo.file.url }}" width="500">
     {% else %}
-      <img src="media/home.jpeg" width="500">
+      <img src="/media/home.jpeg" width="500">
     {% endif %}
 
   {% if not request.user.is_authenticated %}

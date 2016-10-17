@@ -32,10 +32,11 @@ class PatronProfileManager(models.Manager):
 class Photographer(models.Model):
     user_uuid = models.UUIDField(primary_key=True,
                                  default=uuid.uuid4,
-                                 editable=False)
+                                 editable=False,
+                                 )
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
                                 on_delete=models.CASCADE,
-                                )
+                                related_name='photographer',)
     bio = models.CharField('Bio',
                            max_length=1024,
                            blank=True)

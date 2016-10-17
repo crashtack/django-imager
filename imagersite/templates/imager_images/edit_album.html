@@ -1,0 +1,14 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <h1>Edit your crap album here dick</h1>
+
+    <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Edit</button>
+    </form>
+
+
+{% endblock %}
+ 

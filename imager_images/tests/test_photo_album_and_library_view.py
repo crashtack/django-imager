@@ -33,7 +33,7 @@ class AlbumViewTestCase(TestCase):
         self.client.force_login(user=self.user)
         self.album = AlbumFactory(photographer=self.user)
         self.album.cover_photo = PhotoFactory(photographer=self.user)
-        self.album_response = self.client.get(reverse('album', kwargs={'id': self.album.id}))
+        self.album_response = self.client.get(reverse('album', kwargs={'pk': self.album.id}))
 
     def test_album_view_returns_ok_status(self):
         '''test that the response for album is 200'''
@@ -76,4 +76,3 @@ class LibraryViewTestCase(TestCase):
         expected_photo = self.photo.title
         self.assertContains(self.library_response, expected_album)
         self.assertContains(self.library_response, expected_photo)
-

@@ -23,7 +23,9 @@ class Photo(models.Model):
                                      related_name='photos',
                                      related_query_name='photo')
     albums = models.ManyToManyField('Album',
-                                    related_name='photos',)
+                                    related_name='photos',
+                                    blank=True,
+                                    )
     photo_id = models.UUIDField(primary_key=True,
                                 default=uuid.uuid4,
                                 editable=False)
@@ -33,10 +35,16 @@ class Photo(models.Model):
                              width_field=None, max_length=100)
 
     title = models.CharField("Title", name='title', max_length=255, blank=True)
-    description = models.CharField("Description", max_length=255, blank=True, null=True)
+    description = models.CharField("Description",
+                                   max_length=255,
+                                   blank=True,
+                                   null=True)
     date_created = models.DateField('Date Created', auto_now_add=True)
     date_modified = models.DateField('Date Modified', auto_now=True)
-    date_pub = models.DateField('Date Published', editable=True, blank=True, null=True)
+    date_pub = models.DateField('Date Published',
+                                editable=True,
+                                blank=True,
+                                null=True)
     published = models.CharField(max_length=64,
                                  choices=[('private', 'private'),
                                           ('shared', 'shared'),
