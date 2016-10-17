@@ -2,12 +2,12 @@ from .settings import *
 import os
 import dj_database_url
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
+# import pdb; pdb.set_trace()
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = os.environ.get("SECRET_KEY")
-
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 DEFAULT_FROM_EMAIL = '401.imagersite@gmail.com'
