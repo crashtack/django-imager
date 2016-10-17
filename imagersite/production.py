@@ -2,7 +2,7 @@ from .settings import *
 import os
 import dj_database_url
 
-DEBUG = True
+DEBUG = False
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS")
 # import pdb; pdb.set_trace()
