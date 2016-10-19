@@ -6,7 +6,7 @@ from rest_framework.routers import DefaultRouter
 # Create a router and register or viewsets with it
 router = DefaultRouter()
 router.register(r'photos', views.PhotoViewSet)
-router.register(r'photos', views.AlbumViewSet)
+# router.register(r'albums', views.AlbumViewSet)
 router.register(r'users', views.UserViewSet)
 
 # The API URLs are now determinded automatically by the router.
