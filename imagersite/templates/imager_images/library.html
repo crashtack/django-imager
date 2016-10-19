@@ -13,6 +13,21 @@
         {% endfor %}
     </div>
 
+    <div class="pagenation">
+      <span class="step-links">
+        {% if albums.has_previous %}
+            <a href="?page={{ albums.previous_page_number }}">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ albums.number }} of {{ albums.paginator.num_pages }}
+        </span>
+
+        {% if albums.has_next %}
+            <a href="?page={{ albums.next_page_number }}">next</a>
+        {% endif %}
+      </span>
+
     <h2>Your Pics</h2>
     <div class="row">
         {% for image in images %}
