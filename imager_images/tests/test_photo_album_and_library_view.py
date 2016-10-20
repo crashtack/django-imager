@@ -71,8 +71,13 @@ class LibraryViewTestCase(TestCase):
 
     def test_library_view_displays_photo_and_album_name(self):
         '''test album view displays album name'''
-        # import pdb; pdb.set_trace()
         expected_album = self.album.title
         expected_photo = self.photo.title
         self.assertContains(self.library_response, expected_album)
         self.assertContains(self.library_response, expected_photo)
+
+    def test_library_view_has_pagenation(self):
+        """
+        Test that the Library view has pagnation
+        """
+        self.assertContains(self.library_response, "Page 1 of 1")

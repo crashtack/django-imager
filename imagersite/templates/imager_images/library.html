@@ -16,7 +16,7 @@
     <div class="pagenation">
       <span class="step-links">
         {% if albums.has_previous %}
-            <a href="?page={{ albums.previous_page_number }}">previous</a>
+            <a href="?page_num_alb={{ albums.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -24,24 +24,28 @@
         </span>
 
         {% if albums.has_next %}
-            <a href="?page={{ albums.next_page_number }}">next</a>
+            <a href="?page_num_alb={{ albums.next_page_number }}">next</a>
         {% endif %}
       </span>
 
     <h2>Your Pics</h2>
     <div class="row">
         {% for image in images %}
-            <div class='col-md-3'>
+            <div class='col-sm-6 col-md-4'>
+              <div class='thumbnail'>
                 <p> {{ image.title }}</p>
-                <a href="{% url 'photo' photo_id=image.photo_id %}"><img src='{{ image.file.url }}' height='150'/></a>
+                <p><a href="{% url 'photo' photo_id=image.photo_id %}">
+                    <img src='{{ image.file.url }}' height='150'/></a></p>
+              </div>
             </div>
+
         {% endfor %}
     </div>
 
     <div class="pagenation">
       <span class="step-links">
         {% if images.has_previous %}
-            <a href="?page={{ images.previous_page_number }}">previous</a>
+            <a href="?page_num_img={{ images.previous_page_number }}">previous</a>
         {% endif %}
 
         <span class="current">
@@ -49,8 +53,22 @@
         </span>
 
         {% if images.has_next %}
-            <a href="?page={{ images.next_page_number }}">next</a>
+            <a href="?page_num_img={{ images.next_page_number }}">next</a>
         {% endif %}
       </span>
+
+
+    <form>
+      <div class="form-group">
+        <select class="form-control" id="sel1">
+          <option>4</option>
+          <option>8</option>
+          <option>16</option>
+          <option>32</option>
+        </select>
+      </div>
+    </form>
+  <!-- </div> -->
+
 
 {% endblock %}
