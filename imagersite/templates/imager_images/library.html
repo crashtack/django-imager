@@ -19,7 +19,6 @@
         {% if albums.has_previous %}
             <a href="?page_num_alb={{ albums.previous_page_number }}">previous</a>
         {% endif %}
-
         <span class="current">
           Page {{ albums.number }} of {{ albums.paginator.num_pages }}
         </span>
@@ -34,12 +33,12 @@
         {% for image in images %}
             <div class='col-sm-6 col-md-4'>
               <div class='thumbnail'>
-                <p> {{ image.title }}</p>
                 <p><a href="{% url 'photo' photo_id=image.photo_id %}">
-                    <img src='{{ image.file.url }}' height='150'/></a></p>
+                    <img src='{{ image.file.url }}'/></a></p>
+                <h3>{{ image.title }}</h3>
+                <p>{{ image.description }}</h3>
               </div>
             </div>
-
         {% endfor %}
     </div>
 
