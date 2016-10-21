@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'imager_images',
     'imager_profile',
+    'rest_framework',
+    'imager_api',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +139,6 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 LOGIN_REDIRECT_URL = '/profile'
 DEFAULT_FROM_EMAIL = '401.imagersite@gmail.com'
 SERVER_EMAIL = '401.imagersite@gmail.com'
+REST_FRAMEWORK = {
+    'PAGE_SIZE': 4
+}

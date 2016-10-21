@@ -2,7 +2,7 @@ from .settings import *
 import os
 import dj_database_url
 
-DEBUG = False
+DEBUG = True
 TEMPLATE_DEBUG = False
 ALLOWED_HOSTS = os.environ.get("ALLOWED_HOSTS").split(',')
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')

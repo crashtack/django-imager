@@ -1,10 +1,11 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
+
     <h1>Library</h1>
     <h2>Your Albums</h2>
     <div class="row">
         {% for album in albums %}
-            <div class='col-md-3'>
+            <div class='col-md-3' id="albums">
                 <h3><a href="{% url 'album' pk=album.pk %}">{{ album.title }}</a></h3>
                 {% if album.cover_photo %}
                     <a href="{% url 'album' pk=album.pk %}"><img src='{{ album.cover_photo.url }}' height='150'/></a>
@@ -13,14 +14,59 @@
         {% endfor %}
     </div>
 
+    <div class="pagenation">
+      <span class="step-links">
+        {% if albums.has_previous %}
+            <a href="?page_num_alb={{ albums.previous_page_number }}">previous</a>
+        {% endif %}
+        <span class="current">
+          Page {{ albums.number }} of {{ albums.paginator.num_pages }}
+        </span>
+
+        {% if albums.has_next %}
+            <a href="?page_num_alb={{ albums.next_page_number }}">next</a>
+        {% endif %}
+      </span>
+
     <h2>Your Pics</h2>
     <div class="row">
         {% for image in images %}
-            <div class='col-md-3'>
-                <p> {{ image.title }}</p>
-                <a href="{% url 'photo' photo_id=image.photo_id %}"><img src='{{ image.file.url }}' height='150'/></a>
+            <div class='col-sm-6 col-md-4' id="images">
+              <div class='thumbnail'>
+                <p><a href="{% url 'photo' photo_id=image.photo_id %}">
+                    <img src='{{ image.file.url }}'/></a></p>
+                <h3>{{ image.title }}</h3>
+                <p>{{ image.description }}</h3>
+              </div>
             </div>
         {% endfor %}
     </div>
+
+    <div class="pagenation">
+      <span class="step-links">
+        {% if images.has_previous %}
+            <a href="?page_num_img={{ images.previous_page_number }}" id="page_prev">previous</a>
+        {% endif %}
+
+        <span class="current">
+          Page {{ images.number }} of {{ images.paginator.num_pages }}
+        </span>
+
+        {% if images.has_next %}
+            <a href="?page_num_img={{ images.next_page_number }}" id="page_next">next</a>
+        {% endif %}
+      </span>
+
+
+    <form>
+      <div class="form-group">
+        <select class="form-control" id="sel1">
+          <option>4</option>
+          <option>8</option>
+          <option>16</option>
+          <option>32</option>
+        </select>
+      </div>
+    </form>
 
 {% endblock %}

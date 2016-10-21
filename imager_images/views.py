@@ -6,14 +6,34 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from django.utils.decorators import method_decorator
 from django.urls import reverse
 from imager_images.form import EditAlbumForm
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 
 
 @login_required
 def library_view(request):
-
+    """ View for the Albums and Photos """
     current_user = User.objects.filter(username=request.user).first()
     images = current_user.photos.all()
     albums = current_user.albums.all()
+    page_images = Paginator(images, 4)  # Show 4 images per page
+    page_album = Paginator(albums, 4)
+    page_num_img = request.GET.get('page_num_img')
+    page_num_alb = request.GET.get('page_num_alb')
+
+    try:
+        albums = page_album.page(page_num_alb)
+    except PageNotAnInteger:
+        albums = page_album.page(1)
+    except EmptyPage:
+        albums = page_album.page(page_album.num_pages)
+
+    try:
+        images = page_images.page(page_num_img)
+    except PageNotAnInteger:
+        images = page_images.page(1)
+    except EmptyPage:
+        images = page_images.page(page_images.num_pages)
+
     context = {'images': images, 'albums': albums}
 
     return render(request, 'imager_images/library.html', context)
