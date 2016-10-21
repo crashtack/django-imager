@@ -1,7 +1,6 @@
 {% extends "imagersite/base.html" %}
 {% block body %}
     <h1>Login</h1>
-    <p>Login or I will kill you!</p>
     <form method="POST">
       {% csrf_token %}
       {{ form }}
