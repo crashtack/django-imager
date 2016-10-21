@@ -55,4 +55,3 @@ class AlbumFactory(factory.django.DjangoModelFactory):
     photographer = factory.SubFactory(UserFactory)
     title = factory.lazy_attribute(lambda o: fake.sentence(nb_words=2))
     description = factory.lazy_attribute(lambda o: fake.sentence(nb_words=5))
-    id = randint(1, 99999)

@@ -5,7 +5,7 @@
     <h2>Your Albums</h2>
     <div class="row">
         {% for album in albums %}
-            <div class='col-md-3'>
+            <div class='col-md-3' id="albums">
                 <h3><a href="{% url 'album' pk=album.pk %}">{{ album.title }}</a></h3>
                 {% if album.cover_photo %}
                     <a href="{% url 'album' pk=album.pk %}"><img src='{{ album.cover_photo.url }}' height='150'/></a>
@@ -31,7 +31,7 @@
     <h2>Your Pics</h2>
     <div class="row">
         {% for image in images %}
-            <div class='col-sm-6 col-md-4'>
+            <div class='col-sm-6 col-md-4' id="images">
               <div class='thumbnail'>
                 <p><a href="{% url 'photo' photo_id=image.photo_id %}">
                     <img src='{{ image.file.url }}'/></a></p>
@@ -45,7 +45,7 @@
     <div class="pagenation">
       <span class="step-links">
         {% if images.has_previous %}
-            <a href="?page_num_img={{ images.previous_page_number }}">previous</a>
+            <a href="?page_num_img={{ images.previous_page_number }}" id="page_prev">previous</a>
         {% endif %}
 
         <span class="current">
@@ -53,7 +53,7 @@
         </span>
 
         {% if images.has_next %}
-            <a href="?page_num_img={{ images.next_page_number }}">next</a>
+            <a href="?page_num_img={{ images.next_page_number }}" id="page_next">next</a>
         {% endif %}
       </span>
 
