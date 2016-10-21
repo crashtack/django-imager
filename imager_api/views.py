@@ -42,7 +42,9 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
     """
     Automatically provides 'list' and 'detail' views
     """
-    permissions_classes = (permissions.IsAuthenticated,
-                           IsOwner,)
+    permission_classes = (permissions.IsAdminUser,)
     queryset = User.objects.all()
     serializer_class = UserSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
