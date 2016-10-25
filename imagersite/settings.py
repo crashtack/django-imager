@@ -135,7 +135,12 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 ACCOUNT_ACTIVATION_DAYS = 7
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_EMAIL_VERIFICATION = True
+ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_FILE_PATH = os.path.join(BASE_DIR, "sent_emails")
 LOGIN_REDIRECT_URL = '/profile'
 DEFAULT_FROM_EMAIL = '401.imagersite@gmail.com'
 SERVER_EMAIL = '401.imagersite@gmail.com'
