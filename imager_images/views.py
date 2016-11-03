@@ -56,7 +56,7 @@ class AddAlbumView(CreateView):
 class UploadPhotoView(CreateView):
     template_name = 'imager_images/upload_photo.html'
     model = Photo
-    fields = ['title', 'description', 'file', 'published',]
+    fields = ['title', 'description', 'file', 'published', ]
     success_url = '/images/library'
 
     def form_valid(self, form):
