@@ -1,0 +1,15 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <h1>Imagersite</h1>
+    {% if photo.file %}
+      <img src="{{ photo.file.url }}" width="500">
+    {% else %}
+      <img src="/media/home.jpeg" width="500">
+    {% endif %}
+
+  {% if not request.user.is_authenticated %}
+    <p>Join the site or no cookie for you!</p>
+  {% endif %}
+
+{% endblock %}

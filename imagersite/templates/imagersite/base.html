@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Imagersite</title>
+    <!-- <base href="/"> -->
+    <!-- Bootstrap CSS CDN-->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <!-- External CSS -->
+    <!-- {% load static %} -->
+    <!-- {% load staticfiles %} -->
+    <link rel="stylesheet" type="text/css" href="{% static "main.css" %}">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<!-- navbar -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="/">Home</a>
+            </div>
+            <div id="navbar" class="collapse navbar-collapse">
+                <ul class="nav navbar-nav">
+                  {% if request.user.username %}
+                    <li class="nav-item"><a href="{% url 'logout' %}">logout</a></li>
+                    <li class="nav-item"><a href="{% url 'private_profile' %}">Profile</a></li>
+                    <li class="nav-item"><a href="{% url 'personal_library' %}">Photos and Albums</a></li>
+                    <li class="nav-item"><a href="{% url 'upload_photo' %}">Upload photo</a></li>
+                    <li class="nav-item"><a href="{% url 'add_album' %}">Add album</a></li>
+                    <li class="nav-item">Welcome {{ request.user.username }}</li>
+                  {% else %}
+                    <li class="nav-item"><a href="{% url 'login' %}">login</a></li>
+                    <li class="nav-item"><a href="{% url 'registration_register' %}">Register</a></li>
+                    <li class="nav-item"><a>Welcome Fellow Human</a></li>
+                  {% endif %}
+                </ul>
+            </div>
+        </div>
+    </nav><!-- End of navbar -->
+
+<div class="container" id="content">
+
+    {% block body %}
+
+    {% endblock %}
+</div>
+
+    <!-- JQuery CDN -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <!-- Bootstrap JS CDN -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+</body>
+</html>

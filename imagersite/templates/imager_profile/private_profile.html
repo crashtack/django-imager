@@ -1,0 +1,31 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <h1>Your private profile</h1>
+    <p>username
+    <br>
+    {{ user.photographer }}</p>
+    <p>bio
+    <br>
+    {{ user.photographer.bio }}</p>
+    <p>first name
+    <br>
+    {{ user.first_name }}</p>
+    <p>last name
+    <br>
+    {{ user.last_name }}</p>
+    <p>email
+    <br>
+    {{ user.email }}</p>
+    <p>number of images
+    <br>
+    {{ num_images }}</p>
+    <p>number of albums
+    <br>
+    {{ num_albums }}</p>
+
+    <a class="btn btn-default" href="{% url 'personal_library' %}" role="button">See your photos and albums</a>
+
+    <a class="btn btn-default" href="{% url 'edit_profile' %}" role="button">Edit profile</a>
+
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <h1>Photo: {{ photo.title }}</h1>
+    <p>description: {{ photo.description }}</p>
+    <p>date_created: {{ photo.date_created }}</p>
+    <p>date_modified: {{ photo.date_modified }}</p>
+    <p>date_pub: {{ photo.date_pub }}</p>
+    <p>published: {{ photo.published }}</p>
+    <p>Part of the albums: This is a to do {{ photo.albums.title }}</p>
+
+    <p><img src='{{ photo.file.url }}' width='500'/></p>
+    <br>
+    <p><a class="btn btn-primary" href="{% url 'edit_photo' photo_id=photo.photo_id %}">Edit</a></p>
+
+{% endblock %}

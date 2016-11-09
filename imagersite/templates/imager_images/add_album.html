@@ -1,0 +1,12 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+
+    <h1>Add an album or face the consequences</h1>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Add album</button>
+    </form>
+
+{% endblock %}

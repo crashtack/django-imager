@@ -24,44 +24,45 @@ class PatronProfileManager(models.Manager):
         model = "PatronProfile"
 
     def get_queryset(self):
-        qs = super(PatronProfileManager, self).get_queryset()
-        return qs.filter(user__is_active=True)
+        '''retrn a queryset of active users'''
+        return User.objects.filter(is_active=True)
 
 
 @python_2_unicode_compatible
 class Photographer(models.Model):
     user_uuid = models.UUIDField(primary_key=True,
                                  default=uuid.uuid4,
-                                 editable=False)
+                                 editable=False,
+                                 )
     user = models.OneToOneField(settings.AUTH_USER_MODEL,
-                                on_delete=models.CASCADE)
-    has_portfolios = models.BooleanField(default=False)
-    portfolio_url = models.CharField(max_length=255, blank=True)
+                                on_delete=models.CASCADE,
+                                related_name='photographer',)
+    bio = models.CharField('Bio',
+                           max_length=1024,
+                           blank=True)
 
     def __str__(self):
-        fn = self.user.get_full_name().strip() or self.user.get_username()
-        return "{}: {}".format(fn, self.user_uuid)
-
-    @property
-    def is_active(self):
-        return self.user.is_active
+        return self.user.get_full_name() or self.user.username
 
     objects = models.Manager()
     active = PatronProfileManager()
 
 
 class Address(models.Model):
-    photographer_profile = models.ForeignKey(
-        Photographer,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        related_name='Addresses',  # TODO: look this up and set it
-    )
+    photographer = models.ForeignKey(settings.AUTH_USER_MODEL,
+                                     on_delete=models.CASCADE,
+                                     blank=True,
+                                     null=True,
+                                     related_name='addresses')
     default = models.BooleanField('Default Address', default=False)
+    title = models.CharField('Title',
+                             max_length=255,
+                             blank=True,
+                             default='Home')
     address_1 = models.CharField('Street Address 1',
                                  max_length=255,
-                                 blank=True,  # it's valid to be empty in Python
-                                 null=True)   # allow it to be empty in DB
+                                 blank=True,
+                                 default='')   # allow it to be empty in DB
     address_2 = models.CharField('Street Address 2',
                                  max_length=255,
                                  blank=True,
@@ -69,31 +70,16 @@ class Address(models.Model):
     city = models.CharField('City',
                             max_length=128,
                             blank=True,
-                            null=True)
+                            default='')
     state = models.CharField('State',
                              max_length=2,
                              blank=True,
-                             null=True)
+                             default='')
     post_code = models.CharField('Zip Code',
                                  max_length=7,
                                  blank=True,
-                                 null=True)
+                                 default='')
 
-
-class Equipment(models.Model):
-    equipment_type = models.CharField(max_length=200, blank=True, null=True)
-    make = models.CharField(max_length=200, blank=True, null=True)
-    model = models.CharField(max_length=200, blank=True, null=True)
-
-
-class SocialMedia(models.Model):
-    photographer_profile = models.ForeignKey(
-        Photographer,
-        on_delete=models.CASCADE,
-        primary_key=True,
-        related_name='SocialMedia',  # TODO: look this up and set it
-    )
-    reason_i_like_bacon = models.CharField(max_length=200,
-                                           blank=True,
-                                           null=True)
-    # more fields
+    def __str__(self):
+        '''format the sting user: titile'''
+        return '{}: {}'.format(self.photographer.user, self.title)

@@ -1,0 +1,11 @@
+{% extends "imagersite/base.html" %}
+{% block body %}
+    <h1>{{ photographer }}'s Public Profile</h1>
+
+    {% for address in photographer.addresses.all %}
+      {% if address.public %}
+        {% include 'imager_profile/address_template.html' %}
+      {% endif %}
+    {% endfor %}
+
+{% endblock %}
