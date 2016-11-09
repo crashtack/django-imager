@@ -7,7 +7,6 @@ from .models import Photographer
 from django import forms
 
 
-
 @login_required
 def profile_view(request):
 
@@ -30,7 +29,9 @@ class EditProfileView(UpdateView):
 
     def get_form(self, *args, **kwargs):
         form = super(EditProfileView, self).get_form(*args, **kwargs)
-        form.fields['bio'] = forms.fields.CharField(initial=self.object.photographer.bio)
+        form.fields['bio'] = forms.fields.CharField(
+            initial=self.object.photographer.bio
+        )
         return form
 
     def form_valid(self, form):
@@ -38,6 +39,3 @@ class EditProfileView(UpdateView):
         form.instance.photographer.bio = form.cleaned_data.get('bio')
         form.instance.photographer.save()
         return super(EditProfileView, self).form_valid(form)
-
-
-
