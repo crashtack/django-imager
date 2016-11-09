@@ -7,7 +7,6 @@ from imager_images.views import EditAlbumView
 from imager_images.models import Photo, Album
 
 
-
 urlpatterns = [
     url(r'^library/$',
         library_view,
